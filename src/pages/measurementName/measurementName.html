@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            Measurement Name
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-buttons end>
+        <button ion-button icon-only clear large (click)="addNameClick()">
+            <ion-icon md="md-add-circle"></ion-icon>
+        </button>
+    </ion-buttons>
+
+    <ion-item-group *ngFor="let group of groupedMeasurementName">
+        <ion-item-divider padding color="light">{{group.TypeName}}</ion-item-divider>
+        <ion-item *ngFor="let measurement of group.names" (click)="editNameClick(measurement)">
+            {{measurement.Name}}
+        </ion-item>
+    </ion-item-group>
+</ion-content>

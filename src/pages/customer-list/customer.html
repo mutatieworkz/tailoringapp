@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Customer</ion-title>
+    </ion-navbar>
+    <ion-toolbar no-border-top>
+        <ion-segment [(ngModel)]="gender">
+            <ion-segment-button value="Male">
+                Male
+            </ion-segment-button>
+            <ion-segment-button value="Female">
+                Female
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <div [ngSwitch]="gender">
+        <ion-list no-lines *ngSwitchCase="'Male'">
+            <ion-item *ngFor="let customer of MaleCustomers" (click)="itemTapped($event, customer)">
+                <div class="Customer-Card">
+                    <div class="content-div">
+                        <ion-row>Gender: {{customer.Gender}}</ion-row>
+                        <ion-row>Age: {{customer.Age}}</ion-row>
+                        <ion-row>Phone: {{customer.Phone}}</ion-row>
+                    </div>
+                    <div class="Name-div">
+                        {{customer.Name}}
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list no-lines *ngSwitchCase="'Female'">
+            <ion-item *ngFor="let customer of FemaleCustomers" (click)="itemTapped($event, customer)">
+                <div class="Customer-Card">
+                    <div class="content-div">
+                        <ion-row>Gender: {{customer.Gender}}</ion-row>
+                        <ion-row>Age: {{customer.Age}}</ion-row>
+                        <ion-row>Phone: {{customer.Phone}}</ion-row>
+                    </div>
+                    <div class="Name-div">
+                        {{customer.Name}}
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            Measurement Type
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-buttons end>
+        <button ion-button icon-only clear large (click)="addTypeClick()">
+            <ion-icon md="md-add-circle"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-list>
+        <ion-item *ngFor="let measurement of measurementType" (click)="editTypeClick(measurement)">
+            {{measurement.Name}}
+        </ion-item>
+    </ion-list>
+</ion-content>

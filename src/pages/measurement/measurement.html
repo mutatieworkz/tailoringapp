@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Add Measurement</ion-title>
+        <ion-buttons *ngIf="closeVisible" end>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary" showWhen="ios">Cancel</span>
+                <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <form (ngSubmit)="Submit()" #registerForm="ngForm">
+        <ion-list inset>
+            <ion-item class="login-item">
+                <ion-label floating style="font-size: 18px">Type</ion-label>
+                <ion-select [(ngModel)]="selectedType" name="measurementtype" (ionChange)="onChange(selectedType)">
+                    <ion-option *ngFor="let type of measurementTypes" [value]="type">{{type.Name}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Qty</ion-label>
+                <ion-input text-right type="number" name="qty" [(ngModel)]="txtQty" required></ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-list no-lines>
+            <ion-item no-lines *ngFor="let customer of measurements">
+                <div item-content>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-5>
+                                <ion-label floating style="font-size: 18px">{{customer.Name}}</ion-label>
+                            </ion-col>
+                            <ion-col col-3>
+                                <ion-input type="number" name="name" [(ngModel)]="customer.Value"></ion-input>
+                            </ion-col>
+                            <ion-col>
+                                <ion-select [(ngModel)]="customer.ValueTypeId" name="ValueType">
+                                    <ion-option *ngFor="let type of valueTypes" [value]="type.Id">{{type.Name}}</ion-option>
+                                </ion-select>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </ion-item>
+        </ion-list>
+        <button ion-button full large color="primaryDarkColor" style="margin-top: 15%">Submit</button>
+    </form>
+</ion-content>
