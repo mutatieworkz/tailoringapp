@@ -330,7 +330,7 @@ export class DatabaseProvider {
   }
 
   checkMeasurementAvaiableByTypeForOrder(type_id, Order_id) {
-    return this.database.executeSql("SELECT * FROM Measurement WHERE Order_Id==? AND Name_Id==? GROUP BY Order_Id,Name_Id", [Order_id, type_id])
+    return this.database.executeSql("SELECT * FROM Measurement as M, Measurement_Name as MN, Measurement_Type as MT  WHERE M.Name_Id==MN.Id AND MN.Type_Id==MT.Id AND M.Order_Id==? AND MT.Id==? GROUP BY Order_Id,Name_Id", [Order_id, type_id])
       .then(data => {
         if (data.rows.length > 0)
           return true;
