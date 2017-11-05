@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
-import { MeasurementPage } from './../../pages/measurement/measurement';
 
 
 @Component({

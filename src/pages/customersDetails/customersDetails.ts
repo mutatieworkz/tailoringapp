@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
 import { EditCustomerPage } from './../../modals/edit-customer/editcustomer';
-import { MeasurementPage } from '../measurement/measurement';
 import { OrderPage } from '../order/order';
 
 /**
