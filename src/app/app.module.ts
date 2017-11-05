@@ -19,6 +19,7 @@ import { CustomersDetailsPage } from '../pages/customersDetails/customersDetails
 import { MeasurementNamePage } from '../pages/measurementName/measurementName';
 import { MeasurementTypePage } from '../pages/measurementType/measurementType';
 import { MeasurementPage } from '../pages/measurement/measurement';
+import { MeasurementDetailsPage } from '../pages/measurementDetails/measurementDetails';
 import { OrderPage } from '../pages/order/order';
 
 import { DatabaseProvider } from '../providers/database/database';
@@ -40,6 +41,7 @@ import { ChangeOrderStatusPage } from '../modals/changeOrderStatus/changeOrderSt
     MeasurementNamePage,
     MeasurementTypePage,
     MeasurementPage,
+    MeasurementDetailsPage,
     OrderPage,
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,
@@ -63,6 +65,7 @@ import { ChangeOrderStatusPage } from '../modals/changeOrderStatus/changeOrderSt
     MeasurementNamePage,
     MeasurementTypePage,
     MeasurementPage,
+    MeasurementDetailsPage,
     OrderPage,
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,

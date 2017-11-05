@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{measurement.Name}} of Order# {{order.Id}}</ion-title>
+        <ion-buttons end>
+                <button ion-button>
+                    <span ion-text color="primary" showWhen="ios">Edit</span>
+                    <ion-icon name="md-create" showWhen="android,windows"></ion-icon>
+                </button>
+                <button ion-button (click)="deleteMeasurement()">
+                        <span ion-text color="primary" showWhen="ios">Delete</span>
+                        <ion-icon name="md-trash" showWhen="android,windows"></ion-icon>
+                    </button>
+            </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let measurement of measurementDetails">
+            <div item-content style="width: 100%">
+                <ion-grid >
+                    <ion-row>
+                        <ion-col col-4>
+                            <ion-label style="font-size: 16px">{{measurement.Name}}</ion-label>
+                        </ion-col>
+                        <ion-col col-3>
+                            <ion-label style="font-size: 16px">{{measurement.Value}}</ion-label>
+                            <!-- <ion-input style="border: 1px solid black" type="number" name="name" [(ngModel)]="customer.Value"></ion-input> -->
+                        </ion-col>
+                        <ion-col>
+                            <ion-label style="font-size: 16px">{{measurement.ValueName}}</ion-label>
+                            <!-- <ion-select style="max-width:60%" [(ngModel)]="customer.ValueTypeId" name="ValueType">
+                                <ion-option *ngFor="let type of valueTypes" [value]="type.Id">{{type.Name}}</ion-option>
+                            </ion-select> -->
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ion-item>
+    </ion-list>
+</ion-content>

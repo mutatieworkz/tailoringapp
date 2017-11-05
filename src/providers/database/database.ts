@@ -39,6 +39,10 @@ export class DatabaseProvider {
     });
   }
 
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   fillDatabase() {
     this.http.get('assets/dummyDump.sql')
       .map(res => res.text())
@@ -337,6 +341,40 @@ export class DatabaseProvider {
         return null;
       });
   }
+
+  getMeasurementDetails(order_id, Name_Id) {
+    return this.database.executeSql("SELECT M.*,MN.Name as Name,MT.Name as TypeName, MVT.Name as ValueName FROM Measurement as M, Measurement_Name as MN, Measurement_Type as MT, Measurement_Value_Type as MVT WHERE M.Name_Id==MN.Id AND MN.Type_Id==MT.Id AND M.Value_Type_Id==MVT.Id AND M.Order_id==? AND MT.Id=?", [order_id, Name_Id])
+      .then(data => {
+        let measurements = [];
+        for (var i = 0; i < data.rows.length; i++) {
+          measurements.push({
+            Id: data.rows.item(i).Id,
+            OrderId: data.rows.item(i).Order_Id,
+            NameId: data.rows.item(i).Name_Id,
+            ValueTypeId: data.rows.item(i).Value_Type_Id,
+            Value: data.rows.item(i).Value,
+            Name: data.rows.item(i).Name,
+            TypeName: data.rows.item(i).TypeName,
+            ValueName: data.rows.item(i).ValueName
+          });
+        }
+        return measurements;
+      }, err => {
+        console.log(err);
+        return null;
+      });
+  }
+
+  deleteMeasurements(id) {
+    return this.database.executeSql("DELETE FROM Measurement WHERE Id=?", [id])
+      .then(data => {
+        return data;
+       }, err => {
+        console.log(err);
+         return err;
+      })
+  }
+
   //#endregion
 
 

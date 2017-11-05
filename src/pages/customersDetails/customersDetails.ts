@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
 import { EditCustomerPage } from './../../modals/edit-customer/editcustomer';
 import { OrderPage } from '../order/order';
@@ -19,19 +19,23 @@ export class CustomersDetailsPage {
   customer: any = {};
   orders = [];
   customerId: number = 0;
+  loadingCtrl: any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private databaseProvider: DatabaseProvider,
+    private loading: LoadingController,
     public modalCtrl: ModalController) {
     var param = navParams.get('customer');
     this.customerId = param.Id;
-    this.databaseProvider.getMeasurementType().then(data => {
-      console.log(data);
-    });
   }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
     console.log('ionViewDidLoad CustomersDetailsPage');
+    this.loadingCtrl = this.loading.create({
+      content: 'Please wait...'
+    })
+    this.loadingCtrl.present();
+    await this.databaseProvider.delay(500);
     this.loadCustomerDetails();
     this.loadOrders();
   }
@@ -46,6 +50,7 @@ export class CustomersDetailsPage {
   loadOrders() {
     this.databaseProvider.getOrderByCustomer(this.customerId).then(data => {
       this.orders = data;
+      this.loadingCtrl.dismiss();
     });
   }
 
@@ -71,5 +76,4 @@ export class CustomersDetailsPage {
   navigateOrderPage(order) {
     this.navCtrl.push(OrderPage, { param: { order: order, customer: this.customer } })
   }
-
 }
