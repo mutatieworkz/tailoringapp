@@ -17,7 +17,7 @@ export class MeasurementNamePage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad MeasurementTypePage');
     this.loadMeasurementName();
   }

@@ -3,7 +3,7 @@
     <name>Tailor</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.1.4:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -15,10 +15,10 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="FadeSplashScreenDuration" value="100" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="1000" />
+    <preference name="SplashScreen" value="splash" />
+    <preference name="SplashScreenDelay" value="200" />
     <preference name="StatusBarBackgroundColor" value="#007ac1" />
     <platform name="android">
         <allow-intent href="market:*" />
@@ -90,6 +90,7 @@
     <allow-navigation href="http://160.110.151.30:8100" />
     <allow-navigation href="http://172.16.51.46:8100" />
     <allow-navigation href="http://160.110.151.32:8100" />
+    <allow-navigation href="http://172.16.51.37:8100" />
     <engine name="browser" spec="^5.0.1" />
     <engine name="android" spec="^6.3.0" />
     <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="^1.0.2" />

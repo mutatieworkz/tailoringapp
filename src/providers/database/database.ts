@@ -243,7 +243,7 @@ export class DatabaseProvider {
             NameId: data.rows.item(i).NameId,
             Name: data.rows.item(i).Name,
             TypeId: data.rows.item(i).TypeId,
-            Value: 0,
+            Value: null,
             ValueTypeId: 1
           });
         }
@@ -278,12 +278,13 @@ export class DatabaseProvider {
 
   //#region Measurements Manipluations
 
-  getMeasurementsByCustomerId(id) {
-    return this.database.executeSql("SELECT MT.Id as TypeId, MT.Name, Max(M.CreatedOn) as CreatedOn from Measurement as M, Measurement_Name as MN, Measurement_Type as MT WHERE M.Name_Id==MN.Id AND MN.Type_Id==MT.Id AND M.Customer_Id==? GROUP BY MT.Name, MT.Id order by MT.Id", [id]).then((data) => {
+  getMeasurementsByOrderId(id) {
+    return this.database.executeSql("SELECT M.Order_id, M.Qty, MT.Id as TypeId, MT.Name, Max(M.CreatedOn) as CreatedOn from Measurement as M, Measurement_Name as MN, Measurement_Type as MT WHERE M.Name_Id==MN.Id AND MN.Type_Id==MT.Id AND M.Order_id==? GROUP BY MT.Name, MT.Id, M.Order_id order by MT.Id", [id]).then((data) => {
       let measurement = [];
       for (var i = 0; i < data.rows.length; i++) {
         measurement.push({
           TypeId: data.rows.item(i).TypeId,
+          Qty: data.rows.item(i).Qty,
           Name: data.rows.item(i).Name,
           CreatedOn: data.rows.item(i).CreatedOn
         });
@@ -296,18 +297,45 @@ export class DatabaseProvider {
   }
 
 
-  addMeasurements(customersId, measurements) {
+  addMeasurements(orderId, measurement) {
     let success: boolean = false;
-    measurements.forEach((value, index) => {
-      this.database.executeSql("INSERT INTO Measurement(Customer_Id, Name_Id, Value_Type_Id, Value, CreatedOn) VALUES(?,?,?,?,?)",
-        [customersId, value.NameId, value.ValueTypeId, value.Value, new Date()]).then(data => {
-          success = true;
-        }, err => {
-          success = false;
-          return err;
-        })
-    });
-    return success;
+    return this.database.executeSql("INSERT INTO Measurement(Order_Id, Name_Id, Value_Type_Id, Value, Sequence_No, Qty, CreatedOn) VALUES(?,?,?,?,?,?,?)",
+      [orderId, measurement.NameId, measurement.ValueTypeId, measurement.Value = measurement.Value == null ? 0 : measurement.Value, measurement.Sequence_No, measurement.Qty, new Date()]).then(data => {
+        return success = true;
+      }, err => {
+        success = false;
+        return err;
+      })
+  }
+
+  getMeasurementSequenceNo(order_id) {
+    return this.database.executeSql("SELECT Max(Sequence_No) as No FROM Measurement WHERE Order_Id==?  GROUP BY Order_Id ORDER BY Sequence_No DESC", [order_id])
+      .then(data => {
+        if (data.rows.length > 0) {
+          let no = data.rows.item(0).No;
+          return no == NaN ? 0 : no;
+        }
+        else {
+          return 0;
+        }
+      },
+      err => {
+        console.log(err);
+        return null;
+      })
+  }
+
+  checkMeasurementAvaiableByTypeForOrder(type_id, Order_id) {
+    return this.database.executeSql("SELECT * FROM Measurement WHERE Order_Id==? AND Name_Id==? GROUP BY Order_Id,Name_Id", [Order_id, type_id])
+      .then(data => {
+        if (data.rows.length > 0)
+          return true;
+        else
+          return false;
+      }, err => {
+        console.log(err);
+        return null;
+      });
   }
   //#endregion
 
@@ -366,8 +394,8 @@ export class DatabaseProvider {
       })
   }
 
-  updateOrderStatus(id, status_id) {
-    return this.database.executeSql("UPDATE Order SET Status_Id=? WHERE Id=?", [status_id, id])
+  updateOrderStatus(status_id, id) {
+    return this.database.executeSql("UPDATE Orders SET Status_Id=? WHERE Id=?", [status_id, id])
       .then(data => {
         return data;
       }, err => {

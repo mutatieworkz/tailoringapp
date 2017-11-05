@@ -50,7 +50,7 @@ export class AddEditMeasurementTypePage {
     presentToast(content: string) {
         const toast = this.toastCtrl.create({
             message: content,
-            duration: 2000,
+            duration: 1000,
             position: 'middle'
         });
         toast.onDidDismiss(() => {

@@ -3,7 +3,7 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
 import { EditCustomerPage } from './../../modals/edit-customer/editcustomer';
 import { MeasurementPage } from '../measurement/measurement';
-import { OrdertPage } from '../order/order';
+import { OrderPage } from '../order/order';
 
 /**
  * Generated class for the CustomersDetailsPage page.
@@ -31,7 +31,7 @@ export class CustomersDetailsPage {
     });
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad CustomersDetailsPage');
     this.loadCustomerDetails();
     this.loadOrders();
@@ -64,13 +64,13 @@ export class CustomersDetailsPage {
     this.databaseProvider.addOrder(this.customerId)
       .then(data => {
         this.databaseProvider.getOrderById(data.insertId).then(data => {
-          this.navCtrl.push(OrdertPage, { param: { order: data, customer: this.customer } });
+          this.navCtrl.push(OrderPage, { param: { order: data, customer: this.customer } });
         });
       });
   }
 
   navigateOrderPage(order) {
-    this.navCtrl.push(OrdertPage, { param: { order: order, customer: this.customer } })
+    this.navCtrl.push(OrderPage, { param: { order: order, customer: this.customer } })
   }
 
 }

@@ -45,11 +45,26 @@
     </ion-row>
 
     <ion-row>
-            <ion-label padding-left>Measurements</ion-label>
-            <ion-buttons end>
-              <button ion-button icon-only clear large (click)="addMeasurements()">
-                <ion-icon md="md-add-circle"></ion-icon>
-              </button>
-            </ion-buttons>
-          </ion-row>
+        <ion-label class="item-md">Measurements</ion-label>
+        <ion-buttons end>
+            <button ion-button icon-only round color="royal" style="font-size: 12px" (click)="addMeasurements()">
+                <ion-icon md="md-add"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-row>
+
+    <ion-list no-lines>
+            <ion-item *ngFor="let measurement of measurements" (click)="navigateMeasurePage(measurement)">
+              <div class="Customer-Card">
+                <div class="content-div">
+                  <ion-row>Qty: {{measurement.Qty}}</ion-row> 
+                  <ion-row> {{measurement.CreatedOn | date: 'dd/MM/yyyy'}}</ion-row>
+                  <ion-row></ion-row>
+                </div>
+                <div class="Name-div">
+                        {{measurement.Name}}
+                </div>
+              </div>
+            </ion-item>
+          </ion-list>
 </ion-content>

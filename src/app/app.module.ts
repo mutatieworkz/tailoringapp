@@ -19,13 +19,14 @@ import { CustomersDetailsPage } from '../pages/customersDetails/customersDetails
 import { MeasurementNamePage } from '../pages/measurementName/measurementName';
 import { MeasurementTypePage } from '../pages/measurementType/measurementType';
 import { MeasurementPage } from '../pages/measurement/measurement';
-import { OrdertPage } from '../pages/order/order';
+import { OrderPage } from '../pages/order/order';
 
 import { DatabaseProvider } from '../providers/database/database';
 
 import { EditCustomerPage } from '../modals/edit-customer/editcustomer';
 import { AddEditMeasurementNamePage } from '../modals/addEditMeasurementName/addEditMeasurementName';
 import { AddEditMeasurementTypePage } from '../modals/addEditMeasurementType/addEditMeasurementType';
+import { ChangeOrderStatusPage } from '../modals/changeOrderStatus/changeOrderStatus';
 
 @NgModule({
   declarations: [
@@ -39,9 +40,10 @@ import { AddEditMeasurementTypePage } from '../modals/addEditMeasurementType/add
     MeasurementNamePage,
     MeasurementTypePage,
     MeasurementPage,
-    OrdertPage,
+    OrderPage,
     AddEditMeasurementNamePage,
-    AddEditMeasurementTypePage
+    AddEditMeasurementTypePage,
+    ChangeOrderStatusPage
   ],
   imports: [
     BrowserModule,
@@ -61,9 +63,10 @@ import { AddEditMeasurementTypePage } from '../modals/addEditMeasurementType/add
     MeasurementNamePage,
     MeasurementTypePage,
     MeasurementPage,
-    OrdertPage,
+    OrderPage,
     AddEditMeasurementNamePage,
-    AddEditMeasurementTypePage
+    AddEditMeasurementTypePage,
+    ChangeOrderStatusPage
   ],
   providers: [
     StatusBar,

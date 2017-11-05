@@ -1,41 +1,63 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
 import { MeasurementPage } from './../measurement/measurement';
+import { ChangeOrderStatusPage } from './../../modals/changeOrderStatus/changeOrderStatus';
 
 @Component({
     selector: 'page-order',
     templateUrl: 'order.html'
 })
 
-export class OrdertPage {
+export class OrderPage {
     customer: any;
     order: any;
-    // measurementTypes = [];
-    // selectedType: any;
-    // status = [];
-    // selectedStatus: any;
+    measurements = [];
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private databaseProvider: DatabaseProvider,
-        private toastCtrl: ToastController) {
+        public modalCtrl: ModalController) {
         this.customer = this.navParams.data.param.customer;
         this.order = this.navParams.data.param.order;
         console.log(this.order);
         console.log(this.customer);
-        // this.databaseProvider.getMeasurementType().then(data => {
-        //     this.measurementTypes = data;
-        // });
-        // this.databaseProvider.getStatus().then(data => {
-        //     this.status = data;
-        // });
     }
 
     changeStatus() {
+        let modal = this.modalCtrl.create(ChangeOrderStatusPage, { param: { order: this.order, customer: this.customer } });
+        modal.onDidDismiss(() => {
+            // Call the method to do whatever in your home.ts
+            this.loadOrderDetails();
+            this.loadMeasurements();
+            console.log('Modal closed');
+        });
+        modal.present();
+    }
 
+    ionViewDidEnter() {
+        this.loadOrderDetails();
+        this.loadMeasurements();
+    }
+
+    loadOrderDetails() {
+        this.databaseProvider.getOrderById(this.order.Id)
+            .then(data => {
+                this.order = data[0];
+            });
+    }
+
+    loadMeasurements() {
+        this.databaseProvider.getMeasurementsByOrderId(this.order.Id)
+            .then(data => {
+                this.measurements = data;
+            });
     }
 
     addMeasurements() {
-        this.navCtrl.push(MeasurementPage, { param: { order: this.order, customer: this.customer }});
+        this.navCtrl.push(MeasurementPage, { param: { order: this.order, customer: this.customer } });
+    }
+
+    navigateMeasurePage(measurement) {
+
     }
 }

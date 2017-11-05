@@ -16,7 +16,7 @@ export class MeasurementTypePage {
     public modalCtrl: ModalController) {
 
   }
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad MeasurementTypePage');
     this.loadMeasurementType();
   }

@@ -25,18 +25,18 @@
             </ion-item>
         </ion-list>
         <ion-list no-lines>
-            <ion-item no-lines *ngFor="let customer of measurements">
+            <ion-item *ngFor="let customer of measurements">
                 <div item-content>
                     <ion-grid>
                         <ion-row>
-                            <ion-col col-5>
-                                <ion-label floating style="font-size: 18px">{{customer.Name}}</ion-label>
+                            <ion-col col-4>
+                                <ion-label style="font-size: 16px">{{customer.Name}}</ion-label>
                             </ion-col>
                             <ion-col col-3>
-                                <ion-input type="number" name="name" [(ngModel)]="customer.Value"></ion-input>
+                                <ion-input style="border: 1px solid black" type="number" name="name" [(ngModel)]="customer.Value"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-select [(ngModel)]="customer.ValueTypeId" name="ValueType">
+                                <ion-select style="max-width:60%" [(ngModel)]="customer.ValueTypeId" name="ValueType">
                                     <ion-option *ngFor="let type of valueTypes" [value]="type.Id">{{type.Name}}</ion-option>
                                 </ion-select>
                             </ion-col>
