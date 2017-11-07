@@ -36,7 +36,7 @@
                                 <ion-input style="border: 1px solid black" type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="customer.Value"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-select style="max-width:60%" [(ngModel)]="customer.ValueTypeId" name="ValueType">
+                                <ion-select style="max-width:60%" [(ngModel)]="customer.ValueTypeId" [ngModelOptions]="{standalone: true}">
                                     <ion-option *ngFor="let type of valueTypes" [value]="type.Id">{{type.Name}}</ion-option>
                                 </ion-select>
                             </ion-col>
