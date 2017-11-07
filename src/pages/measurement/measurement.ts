@@ -17,6 +17,8 @@ export class MeasurementPage {
     customerId: any;
     txtQty = 1;
     loadingCtrl: any;
+    closeVisible = false;
+    typeVisible = true;
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private databaseProvider: DatabaseProvider,

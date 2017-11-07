@@ -28,6 +28,7 @@ import { EditCustomerPage } from '../modals/edit-customer/editcustomer';
 import { AddEditMeasurementNamePage } from '../modals/addEditMeasurementName/addEditMeasurementName';
 import { AddEditMeasurementTypePage } from '../modals/addEditMeasurementType/addEditMeasurementType';
 import { ChangeOrderStatusPage } from '../modals/changeOrderStatus/changeOrderStatus';
+import { EditMeasurementPage } from '../modals/editMeasurement/editMeasurement';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ChangeOrderStatusPage } from '../modals/changeOrderStatus/changeOrderSt
     OrderPage,
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,
-    ChangeOrderStatusPage
+    ChangeOrderStatusPage,
+    EditMeasurementPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import { ChangeOrderStatusPage } from '../modals/changeOrderStatus/changeOrderSt
     OrderPage,
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,
-    ChangeOrderStatusPage
+    ChangeOrderStatusPage,
+    EditMeasurementPage
   ],
   providers: [
     StatusBar,

@@ -13,7 +13,7 @@
 <ion-content>
     <form (ngSubmit)="Submit()" #registerForm="ngForm">
         <ion-list inset>
-            <ion-item class="login-item">
+            <ion-item *ngIf="typeVisible" class="login-item">
                 <ion-label floating style="font-size: 18px">Type</ion-label>
                 <ion-select [(ngModel)]="selectedType" name="measurementtype" (ionChange)="onChange(selectedType)">
                     <ion-option *ngFor="let type of measurementTypes" [value]="type">{{type.Name}}</ion-option>
@@ -33,7 +33,7 @@
                                 <ion-label style="font-size: 16px">{{customer.Name}}</ion-label>
                             </ion-col>
                             <ion-col col-3>
-                                <ion-input style="border: 1px solid black" type="number" name="name" [(ngModel)]="customer.Value"></ion-input>
+                                <ion-input style="border: 1px solid black" type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="customer.Value"></ion-input>
                             </ion-col>
                             <ion-col>
                                 <ion-select style="max-width:60%" [(ngModel)]="customer.ValueTypeId" name="ValueType">

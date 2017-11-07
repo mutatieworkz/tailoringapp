@@ -2,7 +2,7 @@
     <ion-navbar color="primary">
         <ion-title>{{measurement.Name}} of Order# {{order.Id}}</ion-title>
         <ion-buttons end>
-                <button ion-button>
+                <button ion-button (click)="editMeasurement()">
                     <span ion-text color="primary" showWhen="ios">Edit</span>
                     <ion-icon name="md-create" showWhen="android,windows"></ion-icon>
                 </button>
@@ -16,6 +16,10 @@
 
 <ion-content>
     <ion-list>
+        <ion-item>
+                <ion-label>Qty</ion-label>
+                <ion-label text-right>{{qty}}</ion-label>
+        </ion-item>
         <ion-item *ngFor="let measurement of measurementDetails">
             <div item-content style="width: 100%">
                 <ion-grid >

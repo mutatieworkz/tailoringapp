@@ -68,7 +68,7 @@ export class CustomersDetailsPage {
     this.databaseProvider.addOrder(this.customerId)
       .then(data => {
         this.databaseProvider.getOrderById(data.insertId).then(data => {
-          this.navCtrl.push(OrderPage, { param: { order: data, customer: this.customer } });
+          this.navCtrl.push(OrderPage, { param: { order: data[0], customer: this.customer } });
         });
       });
   }

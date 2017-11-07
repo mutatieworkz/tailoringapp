@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ModalController, LoadingController, AlertController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
+import { EditMeasurementPage } from './../../modals/editMeasurement/editMeasurement';
 
 @Component({
     selector: 'page-measurement',
@@ -12,12 +13,14 @@ export class MeasurementDetailsPage {
     measurement: any;
     measurementDetails = [];
     loadingCtrl: any;
+    qty: any;
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private databaseProvider: DatabaseProvider,
         private toastCtrl: ToastController,
         private loading: LoadingController,
-        private alertCtrl: AlertController) {
+        private alertCtrl: AlertController,
+        public modalCtrl: ModalController) {
         this.order = navParams.data.param.order;
         this.measurement = navParams.data.param.measurement;
         this.loadingCtrl = this.loading.create({
@@ -33,6 +36,7 @@ export class MeasurementDetailsPage {
         this.databaseProvider.getMeasurementDetails(this.order.Id, this.measurement.TypeId)
             .then(data => {
                 this.measurementDetails = data;
+                this.qty = data[0].Qty;
             });
     }
 
@@ -67,6 +71,16 @@ export class MeasurementDetailsPage {
             ]
         });
         alert.present();
+    }
+
+    editMeasurement() {
+        let modal = this.modalCtrl.create(EditMeasurementPage, { measurements: this.measurementDetails, qty: this.qty });
+        modal.onDidDismiss(() => {
+            // Call the method to do whatever in your home.ts
+            this.loadMeasurement();
+            console.log('Modal closed');
+        });
+        modal.present();
     }
 
     presentToast(content: string) {
