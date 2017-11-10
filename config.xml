@@ -3,7 +3,7 @@
     <name>Tailor</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://160.110.151.39:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -93,6 +93,7 @@
     <allow-navigation href="http://160.110.151.32:8100" />
     <allow-navigation href="http://172.16.51.37:8100" />
     <allow-navigation href="http://160.110.151.56:8100" />
+    <allow-navigation href="http://160.110.151.39:8100" />
     <engine name="browser" spec="^5.0.1" />
     <engine name="android" spec="^6.3.0" />
     <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="^1.0.2" />
