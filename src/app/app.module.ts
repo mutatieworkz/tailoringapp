@@ -24,6 +24,8 @@ import { OrderPage } from '../pages/order/order';
 
 import { DatabaseProvider } from '../providers/database/database';
 
+import { GenderToimagePipe } from '../pipes/gender-toimage';
+
 import { EditCustomerPage } from '../modals/edit-customer/editcustomer';
 import { AddEditMeasurementNamePage } from '../modals/addEditMeasurementName/addEditMeasurementName';
 import { AddEditMeasurementTypePage } from '../modals/addEditMeasurementType/addEditMeasurementType';
@@ -47,7 +49,8 @@ import { EditMeasurementPage } from '../modals/editMeasurement/editMeasurement';
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,
     ChangeOrderStatusPage,
-    EditMeasurementPage
+    EditMeasurementPage,
+    GenderToimagePipe
   ],
   imports: [
     BrowserModule,

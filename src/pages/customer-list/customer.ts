@@ -8,9 +8,10 @@ import { CustomersDetailsPage } from '../customersDetails/customersDetails';
     templateUrl: 'customer.html',
 })
 export class CustomerPage {
+    baseCustomer: Array<any> = [];
     customers: Array<any> = [];
-    MaleCustomers: Array<any> = [];
-    FemaleCustomers: Array<any> = [];
+    // MaleCustomers: Array<any> = [];
+    // FemaleCustomers: Array<any> = [];
     gender: string = "Male";
 
 
@@ -40,16 +41,17 @@ export class CustomerPage {
 
     loadCustomers() {
         this.databaseProvider.getAllCustomers().then(data => {
-            this.customers = data;
+            this.baseCustomer = data;
             this.FilterCustomer(data);
         });
     }
 
     private FilterCustomer(data: any[]) {
-        this.MaleCustomers = [];
-        this.FemaleCustomers = [];
-        this.MaleCustomers = data.filter(gender => gender.Gender == "Male");
-        this.FemaleCustomers = data.filter(gender => gender.Gender == "Female");
+        // this.MaleCustomers = [];
+        // this.FemaleCustomers = [];
+        // this.MaleCustomers = data.filter(gender => gender.Gender == "Male");
+        // this.FemaleCustomers = data.filter(gender => gender.Gender == "Female");
+        this.customers = this.baseCustomer;
     }
 
     itemTapped(event, customer) {
@@ -73,11 +75,14 @@ export class CustomerPage {
         let val = ev.target.value;
         // if the value is an empty string don't filter the items
         if (val && val.trim() != '') {
-            this.MaleCustomers = this.customers.filter(gender => gender.Gender == "Male" && (gender.Name.toLowerCase().indexOf(val.toLowerCase()) > -1 || gender.Phone.indexOf(val) > -1));
-            this.FemaleCustomers = this.customers.filter(gender => gender.Gender == "Female" && (gender.Name.toLowerCase().indexOf(val.toLowerCase()) > -1 || gender.Phone.indexOf(val) > -1));
+            // this.MaleCustomers = this.customers.filter(gender => gender.Gender == "Male" && (gender.Name.toLowerCase().indexOf(val.toLowerCase()) > -1 || gender.Phone.indexOf(val) > -1));
+            // this.FemaleCustomers = this.customers.filter(gender => gender.Gender == "Female" && (gender.Name.toLowerCase().indexOf(val.toLowerCase()) > -1 || gender.Phone.indexOf(val) > -1));
+            this.customers = this.baseCustomer.filter((item) => {
+                return ((item.Name.toLowerCase().indexOf(val.toLowerCase()) > -1 || item.Phone.indexOf(val) > -1));
+            })
         }
         else {
-            this.FilterCustomer(this.customers);
+            this.FilterCustomer(this.baseCustomer);
         }
     }
 }

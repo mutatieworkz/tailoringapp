@@ -1,0 +1,31 @@
+1.User should be able to add more than one sub order with same type. Orders needs to be maintained based on Sub-orders not as per the measurement or dress type. - Discussed and clear
+2.Custom measurement type should be able to added and can be included in measurements name screen. - Discussed and clear
+3.Measurename name list should be able to collapse or expand.- need Accordin view
+4.There should be an option to clear or delete the measurement type. - this is not in scope hence need to handle depend data
+5.I think no need to have default measurement type. While installing the application they should be capable of creating it, so there will not be any re-ordering issue will be there. - remove all default data while install
+6. Handling of Dress material photo's will be able to handled easily if we maintain the Customer->Orders->Sub-Order->(Respective material can be attached with the respective orders) 
+7.Need to show some more information in dashboard. like number list and status of an order. That order card can consists of order number and sub-order number which is in active and the status of the orders and list can have the filters to retrive the completed and pending orders. - Dashboard page
+
+Things need to add
+
+Order Entry page
+	1. Order due date
+	2. Amount
+	3. Pic of material
+	4. abilty to select exsiting or new customer 
+	5. abilty to add measurements here instead of new page
+	6. 
+	
+Dashboard page	
+	1. Diaply today due orders
+	2. Add sidemenu for add, list customer, measurement types, measurement names
+	
+	
+Customer depends data
+	1. needs to add depend table based on exsiting customer.
+	
+
+Backup local DB frequency
+
+	
+	
