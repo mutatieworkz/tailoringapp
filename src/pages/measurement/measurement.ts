@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
+import { retry } from 'rxjs/operators/retry';
 
 @Component({
     selector: 'page-measurement',
@@ -16,9 +17,11 @@ export class MeasurementPage {
     measurements = [];
     customerId: any;
     txtQty = 1;
+    txtAmount;
     loadingCtrl: any;
     closeVisible = false;
     typeVisible = true;
+    dueDate: string = new Date().toISOString();
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private databaseProvider: DatabaseProvider,
@@ -40,6 +43,7 @@ export class MeasurementPage {
 
     onChange(selectedValue) {
         this.measurements = [];
+        this.selectedType = selectedValue;
         this.databaseProvider.checkMeasurementAvaiableByTypeForOrder(selectedValue.Id, this.order.Id)
             .then(data => {
                 if (!data) {
@@ -76,21 +80,60 @@ export class MeasurementPage {
     }
 
     Submit() {
+        if (this.txtAmount == undefined) {
+            this.presentToast("Please enter amount");
+            return;
+        }
         this.loadingCtrl.present();
-        this.databaseProvider.getMeasurementSequenceNo(this.order.Id)
-            .then(data => {
-                let len = this.measurements.length - 1;
-                this.measurements.forEach((value, index) => {
-                    value.Qty = this.txtQty;
-                    value.Sequence_No = data + 1;
-                    this.databaseProvider.addMeasurements(this.order.Id, value).then(data => {
-                        if (index == len) {
-                            this.loadingCtrl.dismiss();
-                            this.presentToast("measurement added successfully");
-                        }
+        if (this.order.Id == undefined) {
+            this.databaseProvider.addOrder(this.customer.Id, this.order.DueDate)
+                .then(data => {
+                    this.databaseProvider.orderId = data.insertId;
+                    this.addOrderType(data.insertId, 1).then(data => {
                     });
                 });
-            })
+        }
+        else {
+            if (this.order.OrderType == null) {
+                this.addOrderType(this.order.Id, 1);
+            }
+            else {
+                this.databaseProvider.getMeasurementSequenceNo(this.order.Id)
+                    .then(data => {
+                        if (data != null) {
+                            this.addOrderType(this.order.Id, data);
+                        }
+                        // else {
+                        //     this.loadingCtrl.dismiss();
+                        // }
+                    })
+            }
+        }
+    }
+
+    private addOrderType(id, no) {
+        return this.databaseProvider.addOrderType(id, this.selectedType.Id, no, this.txtQty, this.txtAmount, this.dueDate)
+            .then(data => {
+                this.addMeasurements(data.insertId);
+            });
+    }
+
+
+
+    private addMeasurements(id) {
+        let len = this.measurements.length - 1;
+        this.measurements.forEach((value, index) => {
+            this.databaseProvider.addMeasurements(id, value).then(data => {
+                if (index == len) {
+                    this.loadingCtrl.dismiss();
+                    this.presentToast("measurement added successfully");
+                }
+            });
+        });
+    }
+
+    changeDueDate(dueDate) {
+        this.dueDate = dueDate;
     }
 
     presentToast(content: string) {

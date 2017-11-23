@@ -12,6 +12,11 @@
         <ion-icon md="md-create"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only menuToggle="right" show end>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -52,10 +57,12 @@
         <div class="content-div">
           <ion-row> Order No: {{order.Id}}</ion-row>
           <ion-row>Order Status: {{order.Status}}</ion-row>
+          <ion-row>Due Date: {{order.DueDate | date: 'dd/MM/yyyy'}}</ion-row>
+          <ion-row>Amount: {{order.Amount}}</ion-row>
           <ion-row></ion-row>
         </div>
         <div class="Name-div">
-          {{order.OrderDate | date: 'dd/MM/yyyy'}}
+          {{order.OrderDate | date: 'dd/MM/yyyy'}} -  {{order.DueDate | date: 'dd/MM/yyyy'}}
         </div>
       </div>
     </ion-item>

@@ -1,8 +1,7 @@
 <ion-header>
     <ion-navbar color="primary">
-        <button *ngIf="!toggled" ion-button icon-only menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
+
+
         <!-- Title -->
         <ion-title *ngIf="!toggled">Customers</ion-title>
         <!-- Search Bar -->
@@ -20,6 +19,11 @@
             </button>
         </ion-buttons>
         <!-- <ion-title>Customer</ion-title> -->
+        <ion-buttons end *ngIf="!toggled">
+            <button ion-button icon-only menuToggle="right" show end>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 
     <!-- <ion-toolbar no-border-top>
@@ -37,30 +41,30 @@
 
 <ion-content>
     <!-- <div [ngSwitch]="gender"> -->
-        <ion-list no-lines >
-            <ion-item *ngFor="let customer of customers" (click)="itemTapped($event, customer)">
-                <div class="Customer-Card">
-                    <div class="content-div">
-                        <ion-grid>
-                            <ion-row>
-                                <ion-col col-10>
-                                    <ion-row>Gender: {{customer.Gender}}</ion-row>
-                                    <ion-row>Age: {{customer.Age}}</ion-row>
-                                    <ion-row>Phone: {{customer.Phone}}</ion-row>
-                                </ion-col>
-                                <ion-col col-2>
-                                    <img src="{{customer.Gender | genderToimage}}" />
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </div>
-                    <div class="Name-div">
-                        {{customer.Name}}
-                    </div>
+    <ion-list no-lines>
+        <ion-item *ngFor="let customer of customers" (click)="itemTapped($event, customer)">
+            <div class="Customer-Card">
+                <div class="content-div">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-10>
+                                <ion-row>Gender: {{customer.Gender}}</ion-row>
+                                <ion-row>Age: {{customer.Age}}</ion-row>
+                                <ion-row>Phone: {{customer.Phone}}</ion-row>
+                            </ion-col>
+                            <ion-col col-2>
+                                <img src="{{customer.Gender | genderToimage}}" />
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
                 </div>
-            </ion-item>
-        </ion-list>
-        <!-- <ion-list no-lines *ngSwitchCase="'Female'">
+                <div class="Name-div">
+                    {{customer.Name}}
+                </div>
+            </div>
+        </ion-item>
+    </ion-list>
+    <!-- <ion-list no-lines *ngSwitchCase="'Female'">
             <ion-item *ngFor="let customer of FemaleCustomers" (click)="itemTapped($event, customer)">
                 <div class="Customer-Card">
                     <div class="content-div">

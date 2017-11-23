@@ -7,6 +7,11 @@
                 <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
             </button>
         </ion-buttons>
+        <ion-buttons end *ngIf="!closeVisible">
+            <button ion-button icon-only menuToggle="right" show end>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -22,6 +27,14 @@
             <ion-item>
                 <ion-label>Qty</ion-label>
                 <ion-input text-right type="number" name="qty" [(ngModel)]="txtQty" required></ion-input>
+            </ion-item>
+            <ion-item class="login-item">
+                <ion-label style="font-size: 18px">Due Date</ion-label>
+                <ion-datetime name="dod" displayFormat="DD/MM/YYYY" [(ngModel)]="dueDate" (ngModelChange)="changeDueDate(dueDate)" required></ion-datetime>
+            </ion-item>
+            <ion-item class="login-item">
+                <ion-label style="font-size: 18px">Amount</ion-label>
+                <ion-input text-right type="number" name="amount" [(ngModel)]="txtAmount" required></ion-input>
             </ion-item>
         </ion-list>
         <ion-list no-lines>

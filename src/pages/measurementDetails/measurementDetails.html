@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar color="primary">
-        <ion-title>{{measurement.Name}} of Order# {{order.Id}}</ion-title>
+        <ion-title>{{orderType.Name}} of Order# {{order.Id}}</ion-title>
         <ion-buttons end>
                 <button ion-button (click)="editMeasurement()">
                     <span ion-text color="primary" showWhen="ios">Edit</span>
@@ -10,6 +10,11 @@
                         <span ion-text color="primary" showWhen="ios">Delete</span>
                         <ion-icon name="md-trash" showWhen="android,windows"></ion-icon>
                     </button>
+            </ion-buttons>
+            <ion-buttons end>
+                <button ion-button icon-only menuToggle="right" show end>
+                    <ion-icon name="menu"></ion-icon>
+                </button>
             </ion-buttons>
     </ion-navbar>
 </ion-header>

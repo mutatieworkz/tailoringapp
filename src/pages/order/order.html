@@ -7,64 +7,90 @@
                 <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
             </button>
         </ion-buttons>
+        <ion-buttons end *ngIf="!closeVisible">
+            <button ion-button icon-only menuToggle="right" show end>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
+    <ion-row class="item-md" *ngIf="isCustomerVisible">
+        <ion-col col-12>
+            <select-searchable [(ngModel)]="selectedCustomer" title="Customers:" itemValueField="Id" itemTextField="Name" [items]="customers" [canSearch]="true"
+                (onChange)="customerChange($event)">
+            </select-searchable>
+        </ion-col>
+    </ion-row>
     <!-- <ion-list inset> -->
     <ion-row class="item-md">
-        <ion-label>Order # : {{order.Id}}</ion-label>
+        <ion-col>
+            <ion-label>Order # : </ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-label>{{order.Id==undefined?'Not yet created':order.Id}}</ion-label>
+        </ion-col>
     </ion-row>
     <ion-row class="item-md">
-        <ion-label>Order Date : {{order.OrderDate | date : 'dd/MM/yyyy'}}</ion-label>
+        <ion-col>
+            <ion-label>Order Date : </ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-label>{{order.OrderDate | date : 'dd/MM/yyyy'}}</ion-label>
+        </ion-col>
     </ion-row>
-    <!-- <ion-item class="paddingLeftZero">
-            <ion-label>Type</ion-label>
-            <ion-select [(ngModel)]="selectedType" name="measurementtype">
-                <ion-option *ngFor="let type of measurementTypes" [value]="type">{{type.Name}}</ion-option>
-            </ion-select>
-        </ion-item> -->
-    <!-- <ion-item>
-            <ion-label>Qty</ion-label>
-            <ion-input text-right type="number" name="qty" [(ngModel)]="txtQty" required></ion-input>
-        </ion-item> -->
-    <!-- <ion-item class="paddingLeftZero">
-            <ion-label>Type</ion-label>
-            <ion-select [(ngModel)]="selectedStatus" name="measurementtype">
-                <ion-option *ngFor="let state of status" [value]="type">{{state.Status}}</ion-option>
-            </ion-select>
-        </ion-item>
-    </ion-list> -->
     <ion-row class="item-md">
-        <ion-label> Status: {{order.Status}}</ion-label>
-        <ion-buttons end>
+        <ion-col>
+            <ion-label>Due Date : </ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-datetime name="dob" displayFormat="DD/MM/YYYY" [(ngModel)]="dueDate" (ngModelChange)="changeDueDate(dueDate)"></ion-datetime>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="item-md">
+        <ion-col>
+            <ion-label>Status: </ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-label>{{order.Status}}</ion-label>
+        </ion-col>
+
+        <!-- <ion-buttons end>
             <button ion-button icon-only round color="royal" style="font-size: 12px" (click)="changeStatus()">
                 <ion-icon md="md-create"></ion-icon>
             </button>
-        </ion-buttons>
+        </ion-buttons> -->
     </ion-row>
 
     <ion-row>
-        <ion-label class="item-md">Measurements</ion-label>
-        <ion-buttons end>
-            <button ion-button icon-only round color="royal" style="font-size: 12px" (click)="addMeasurements()">
-                <ion-icon md="md-add"></ion-icon>
-            </button>
-        </ion-buttons>
+        <ion-col>
+            <ion-label class="item-md">Measurements</ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-buttons end>
+                <button ion-button icon-only round color="royal" style="font-size: 12px" (click)="addMeasurements()">
+                    <ion-icon md="md-add"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-col>
+
     </ion-row>
 
     <ion-list no-lines>
-            <ion-item *ngFor="let measurement of measurements" (click)="navigateMeasurePage(measurement)">
-              <div class="Customer-Card">
+        <ion-item *ngFor="let orderType of orderTypes" (click)="navigateMeasurePage(orderType)">
+            <div class="Customer-Card">
                 <div class="content-div">
-                  <ion-row>Qty: {{measurement.Qty}}</ion-row> 
-                  <ion-row> {{measurement.CreatedOn | date: 'dd/MM/yyyy'}}</ion-row>
-                  <ion-row></ion-row>
+                    <ion-row>Qty: {{orderType.Qty}}</ion-row>
+                    <ion-row>Due Date: {{orderType.DueDate | date: 'dd/MM/yyyy'}}</ion-row>
+                    <ion-row>Rs. {{orderType.Amount }}/-</ion-row>
+                    <ion-row></ion-row>
                 </div>
                 <div class="Name-div">
-                        {{measurement.Name}}
+                    {{orderType.Name}}
                 </div>
-              </div>
-            </ion-item>
-          </ion-list>
+            </div>
+        </ion-item>
+    </ion-list>
 </ion-content>

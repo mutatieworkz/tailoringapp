@@ -10,7 +10,7 @@ import { EditMeasurementPage } from './../../modals/editMeasurement/editMeasurem
 
 export class MeasurementDetailsPage {
     order: any;
-    measurement: any;
+    orderType: any;
     measurementDetails = [];
     loadingCtrl: any;
     qty: any;
@@ -22,7 +22,7 @@ export class MeasurementDetailsPage {
         private alertCtrl: AlertController,
         public modalCtrl: ModalController) {
         this.order = navParams.data.param.order;
-        this.measurement = navParams.data.param.measurement;
+        this.orderType = navParams.data.param.OrderType;
         this.loadingCtrl = this.loading.create({
             content: 'Please wait...'
         })
@@ -33,10 +33,10 @@ export class MeasurementDetailsPage {
     }
 
     loadMeasurement() {
-        this.databaseProvider.getMeasurementDetails(this.order.Id, this.measurement.TypeId)
+        this.databaseProvider.getMeasurementDetails(this.orderType.Id)
             .then(data => {
                 this.measurementDetails = data;
-                this.qty = data[0].Qty;
+                this.qty = this.orderType.Qty;
             });
     }
 

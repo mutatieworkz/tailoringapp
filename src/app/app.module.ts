@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,6 +33,8 @@ import { AddEditMeasurementTypePage } from '../modals/addEditMeasurementType/add
 import { ChangeOrderStatusPage } from '../modals/changeOrderStatus/changeOrderStatus';
 import { EditMeasurementPage } from '../modals/editMeasurement/editMeasurement';
 
+import { SelectSearchableModule } from '../components/select/select-module';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -56,7 +59,9 @@ import { EditMeasurementPage } from '../modals/editMeasurement/editMeasurement';
     BrowserModule,
     HttpModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    BrowserAnimationsModule,
+    SelectSearchableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

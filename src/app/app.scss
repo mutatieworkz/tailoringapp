@@ -37,22 +37,15 @@ $font-style: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-top: 5%;
 }
 
-// .scroll-content-home{
-//     background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)); 
-//     -webkit-background-size: cover;
-//     -moz-background-size: cover;
-//     background-size: cover;
-// }
-
 .scroll-content{
   color: $text-color;
 }
 
 .title-div{
     color: $text-color;
-     font-size: 28px;
-      margin: 2%;
-      text-align: center;
+    font-size: 28px;
+    margin: 2%;
+    text-align: center;
 }
 
 .right{
@@ -70,37 +63,51 @@ $font-style: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: none !important;
 }
 
-      .item-md.item-block .item-inner
-      {
-        padding-right: 16px !important;
-      }
+.item-md.item-block .item-inner
+{
+  padding-right: 16px !important;
+}
 
-      .list-md[inset] .item:last-child {
-        border-bottom-right-radius: 0 !important;
-        border-bottom-left-radius: 0 !important;
-        border-bottom: 1px solid #dedede !important;
-      }
+.list-md[inset] .item:last-child {
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom: 1px solid #dedede !important;
+}
 
-      .Customer-Card{
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-        -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-        font-size: 16px;  
-        margin: 2%;    
-        background:  map-get($colors,primary);
-        color: map-get($colors , primaryTextColor ) !important;  
+.Customer-Card{
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  font-size: 16px;  
+  margin: 2%;    
+  background:  map-get($colors,primary);
+  color: map-get($colors , primaryTextColor ) !important;  
 
-        ion-row{
-          margin-bottom: 1%;
-        }
+  ion-row{
+    margin-bottom: 1%;
+  }
 
-        .content-div{
-          padding: 3%;
-        }
-        .Name-div{
-          background:  map-get($colors,primaryDarkColor);
-          color: white;
-          font-size: 18px;
-          font-weight: lighter;
-          padding: 3%;
-        }
-      }
+  .content-div{
+    padding: 3%;
+  }
+  .Name-div{
+    background:  map-get($colors,primaryDarkColor);
+    color: white;
+    font-size: 18px;
+    font-weight: lighter;
+    padding: 3%;
+  }
+}
+
+[show]{
+  display: block !important;
+}
+
+[count-text]{
+  font-size: 3rem;
+  font-weight: lighter;
+}
+
+.datetime-md {
+  padding: 13px 8px 13px 0;
+  border-bottom: 1px solid #dedede; 
+}

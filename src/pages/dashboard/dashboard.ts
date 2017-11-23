@@ -5,6 +5,7 @@ import { CustomerPage } from '../customer-list/customer';
 import { DatabaseProvider } from './../../providers/database/database';
 import { MeasurementNamePage } from '../measurementName/measurementName';
 import { MeasurementTypePage } from '../measurementType/measurementType';
+import { OrderPage } from '../order/order';
 
 @Component({
   selector: 'page-dashboard',
@@ -58,4 +59,6 @@ export class DashboardPage {
   navigateMeasurementTypePage() { this.navCtrl.push(MeasurementTypePage); }
 
   navigateMeasurementNamePage() { this.navCtrl.push(MeasurementNamePage); }
+
+  navigateOrderPage() { this.navCtrl.push(OrderPage); }
 }

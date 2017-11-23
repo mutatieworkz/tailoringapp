@@ -65,12 +65,12 @@ export class CustomersDetailsPage {
   }
 
   addOrders() {
-    this.databaseProvider.addOrder(this.customerId)
-      .then(data => {
-        this.databaseProvider.getOrderById(data.insertId).then(data => {
-          this.navCtrl.push(OrderPage, { param: { order: data[0], customer: this.customer } });
-        });
-      });
+    // this.databaseProvider.addOrder(this.customerId)
+    //   .then(data => {
+    //     this.databaseProvider.getOrderById(data.insertId).then(data => {
+           this.navCtrl.push(OrderPage, { param: { customer: this.customer } });
+    //     });
+    //   });
   }
 
   navigateOrderPage(order) {

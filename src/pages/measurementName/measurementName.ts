@@ -1,11 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, trigger, state, transition, style, animate } from '@angular/core';
 import { NavController, ToastController, ModalController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
 import { AddEditMeasurementNamePage } from './../../modals/addEditMeasurementName/addEditMeasurementName';
 
 @Component({
   selector: 'page-measurementName',
-  templateUrl: 'measurementName.html'
+  templateUrl: 'measurementName.html',
+  styles: [
+    `
+    .item-block{
+      min-height: 0;
+      transition: 0.09s all linear;
+    }
+    `
+  ],
+  animations: [
+    trigger('expand', [
+      state('true', style({ height: '45px' })),
+      state('false', style({ height: '0' })),
+      transition('void => *', animate('0s')),
+      transition('* <=> *', animate('250ms linear'))
+    ])
+  ]
 })
 export class MeasurementNamePage {
   measurementName: any = [];
@@ -41,6 +57,7 @@ export class MeasurementNamePage {
         currentType = value.TypeName;
 
         let newGroup = {
+          isToggle: false,
           TypeName: currentType,
           names: []
         };
@@ -69,5 +86,17 @@ export class MeasurementNamePage {
       console.log('Modal closed');
     });
     modal.present();
+  }
+
+  onToggle(group) {
+    this.groupedMeasurementName.filter(x => x.TypeName == group.TypeName)[0].isToggle = !group.isToggle;
+  }
+
+  toggleGroup(group) {
+    group.isToggle = !group.isToggle;
+  }
+
+  public isGroupShown(group) {
+    return group.isToggle;
   }
 }

@@ -1,5 +1,8 @@
 <ion-header>
     <ion-navbar color="primary">
+        <button ion-button menuToggle="right" end>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title>
             Dashboard
         </ion-title>
@@ -8,14 +11,42 @@
 
 <ion-content>
     <ion-list>
-        <ion-item>
-            <ion-label>No of Customer: {{Total}}</ion-label>
+        <ion-item text-center>
+            <!-- <ion-label>No of Customer: {{Total}}</ion-label> -->
+            <ion-row>
+                <ion-col col-6 align-self-center>
+                    <img src="assets/MaleFemale.png">
+                </ion-col>
+                <ion-col col-6 align-self-center>
+                    <span count-text>{{Total}}</span>
+                </ion-col>
+            </ion-row>
         </ion-item>
-        <ion-item>
-            <ion-label>Male : {{Male}}</ion-label>
-            <ion-label>Female : {{Female}}</ion-label>
+        <ion-item text-center>
+            <ion-row>
+                <ion-col>
+                    <ion-row>
+                        <ion-col align-self-center>
+                            <img src="assets/Male.png">
+                        </ion-col>
+                        <ion-col align-self-center>
+                            <span count-text>{{Male}}</span>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+                <ion-col>
+                    <ion-row>
+                        <ion-col align-self-center>
+                            <img src="assets/Female.png">
+                        </ion-col>
+                        <ion-col align-self-center>
+                            <span count-text>{{Female}}</span>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
             <ion-row>
                 <ion-col col-6 padding>
                     <button ion-button outline (click)="navigateAddCustomerPage()">Add Customer</button>
@@ -29,6 +60,11 @@
             </ion-row>
             <ion-row>
                 <button ion-button block (click)="navigateMeasurementNamePage()">Measurements Name</button>
+            </ion-row>
+        </ion-item> -->
+        <ion-item>
+            <ion-row>
+                <button ion-button full (click)="navigateOrderPage()">Create Order</button>
             </ion-row>
         </ion-item>
     </ion-list>

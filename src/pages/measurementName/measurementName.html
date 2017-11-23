@@ -3,6 +3,11 @@
         <ion-title>
             Measurement Name
         </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only menuToggle="right" show end>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -14,9 +19,11 @@
     </ion-buttons>
 
     <ion-item-group *ngFor="let group of groupedMeasurementName">
-        <ion-item-divider padding color="light">{{group.TypeName}}</ion-item-divider>
-        <ion-item *ngFor="let measurement of group.names" (click)="editNameClick(measurement)">
-            {{measurement.Name}}
-        </ion-item>
+        <ion-item-divider margin-bottom color="light" (click)="onToggle(group)">{{group.TypeName}}
+            <ion-icon color="success" item-right [name]="isGroupShown(group) ? 'ios-arrow-down' : 'ios-arrow-up'"></ion-icon>
+        </ion-item-divider>
+            <ion-item *ngFor="let measurement of group.names" [@expand]="group.isToggle" (click)="editNameClick(measurement)">
+                {{measurement.Name}}
+            </ion-item>
     </ion-item-group>
 </ion-content>
