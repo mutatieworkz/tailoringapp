@@ -63,9 +63,15 @@
             </ion-row>
         </ion-item> -->
         <ion-item>
-            <ion-row>
-                <button ion-button full (click)="navigateOrderPage()">Create Order</button>
-            </ion-row>
+            <ion-grid>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col>
+                        <button ion-button full (click)="navigateOrderPage()">Create Order</button>
+                    </ion-col>
+                    <ion-col></ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-item>
     </ion-list>
 </ion-content>
