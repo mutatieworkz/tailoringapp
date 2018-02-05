@@ -33,7 +33,7 @@ export class SelectSearchablePage {
                 this.selectedItems.push(this.selectComponent.value);
             }
         }
-    }
+    } 
 
     ngAfterViewInit() {
         if (this.searchbarComponent) {
