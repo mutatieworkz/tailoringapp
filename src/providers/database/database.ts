@@ -16,6 +16,7 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class DatabaseProvider {
   public orderId;
+  public User;
   database: SQLiteObject;
   private databaseReady: BehaviorSubject<boolean>;
 
@@ -56,6 +57,127 @@ export class DatabaseProvider {
           .catch(e => console.error(e));
       });
   }
+  //#region User Management
+  userRegistration(username, password, phone, email, DOB, gender, questionId, answer) {
+    let data = [username.toLowerCase(), password, phone, email.toLowerCase(), DOB, gender, questionId, answer.toLowerCase(), new Date(), new Date()];
+    return this.database.executeSql("INSERT INTO User (Username, Password, Phone, Email, DOB, Gender, QuestionId, Answer, CreatedOn, UpdatedOn) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", data)
+      .then(data => {
+        return data;
+      }, err => {
+        console.log('Error: ', err);
+        return err;
+      });
+  }
+
+  login(username, password) {
+    return this.database.executeSql("SELECT * FROM User WHERE Username=? AND password=?", [username, password])
+      .then(data => {
+        let users = [];
+        if (data.rows.length > 0) {
+          for (var i = 0; i < data.rows.length; i++) {
+            users.push({
+              UserId: data.rows.item(i).UserId,
+              Username: data.rows.item(i).Username,
+              Password: data.rows.item(i).Password,
+              Phone: data.rows.item(i).Phone,
+              Email: data.rows.item(i).Email,
+              DOB: data.rows.item(i).DOB,
+              Gender: data.rows.item(i).Gender,
+              QuestionId: data.rows.item(i).QuestionId,
+              Answer: data.rows.item(i).Answer,
+              CreatedOn: data.rows.item(i).CreatedOn,
+              UpdatedOn: data.rows.item(i).UpdatedOn
+            });
+          }
+        }
+        this.User = users;
+        return users;
+      }, err => {
+        console.log('Error: ', err);
+        return err;
+      });
+  }
+
+  getSecurityQuestionByUser(userName) {
+    return this.database.executeSql("SELECT QuestionId, Answer, UserId FROM User WHERE Username=?", [userName])
+      .then(data => {
+        let questions = [];
+        if (data.rows.length > 0) {
+          for (var i = 0; i < data.rows.length; i++) {
+            questions.push({
+              QuestionId: data.rows.item(i).QuestionId,
+              Answer: data.rows.item(i).Answer,
+              UserId: data.rows.item(i).UserId
+            });
+          }
+        }
+        return questions;
+      },
+      err => {
+        console.log('Error: ', err);
+        return err;
+      });
+  }
+
+  updatePassword(userId, password) {
+    return this.database.executeSql("UPDATE User SET Password=? WHERE UserId=?", [password, userId])
+      .then(data => {
+        return data;
+      },
+      err => {
+        console.log('Error: ', err);
+        return err;
+      });
+  }
+
+  checkUserExists(username) {
+    return this.database.executeSql("SELECT COUNT(*)as count from User WHERE Username=?", [username.toLowerCase()])
+      .then(data => {
+        if (data.rows.length > 0) {
+          if (data.rows.item(0).count > 0)
+            return false;
+          else
+            return true;
+        }
+        else
+          return false;
+      }, err => {
+        console.log('Error: ', err);
+        return false;
+      });
+  }
+
+  getQuestions() {
+    return this.database.executeSql("SELECT * FROM SecurityQuestions", [])
+      .then(data => {
+        let questions = [];
+        if (data.rows.length > 0) {
+          for (var i = 0; i < data.rows.length; i++) {
+            questions.push({
+              QuestionId: data.rows.item(i).QuestionId,
+              Question: data.rows.item(i).Question,
+              CreatedOn: data.rows.item(i).CreatedOn,
+              UpdatedOn: data.rows.item(i).UpdatedOn
+            });
+          }
+        }
+        return questions;
+      }, err => {
+        console.log('Error: ', err);
+        return err;
+      });
+  }
+
+  updateIsLogin(userId, isLogin) {
+    return this.database.executeSql("UPDATE USER SET IsLogin=? WHERE UserId=?", [isLogin, userId])
+      .then(data => {
+        return true;
+      }, err => {
+        return false;
+      });
+  }
+  //endregion
+
 
   //#region Customer Manipulation
   addCustomer(name, gender, age, address, phone, DOB) {

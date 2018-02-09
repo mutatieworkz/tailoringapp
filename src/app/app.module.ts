@@ -11,8 +11,14 @@ import { HttpModule } from '@angular/http';
 import { SQLitePorter } from '@ionic-native/sqlite-porter';
 import { SQLite } from '@ionic-native/sqlite';
 
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { UserRegistrationPage } from '../pages/userRegistration/userRegistration';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { AddCustomerPage } from '../pages/add-customer/add-customer'
 import { CustomerPage } from '../pages/customer-list/customer';
@@ -22,6 +28,7 @@ import { MeasurementTypePage } from '../pages/measurementType/measurementType';
 import { MeasurementPage } from '../pages/measurement/measurement';
 import { MeasurementDetailsPage } from '../pages/measurementDetails/measurementDetails';
 import { OrderPage } from '../pages/order/order';
+import { ProfilePage } from '../pages/profile/profile'
 
 import { DatabaseProvider } from '../providers/database/database';
 
@@ -35,10 +42,13 @@ import { EditMeasurementPage } from '../modals/editMeasurement/editMeasurement';
 
 import { SelectSearchableModule } from '../components/select/select-module';
 
+import { PopoverPage } from '../pages/dashboard/dashboard';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    UserRegistrationPage,
     DashboardPage,
     AddCustomerPage,
     CustomerPage,
@@ -49,11 +59,13 @@ import { SelectSearchableModule } from '../components/select/select-module';
     MeasurementPage,
     MeasurementDetailsPage,
     OrderPage,
+    ProfilePage,
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,
     ChangeOrderStatusPage,
     EditMeasurementPage,
-    GenderToimagePipe
+    GenderToimagePipe,
+    PopoverPage
   ],
   imports: [
     BrowserModule,
@@ -67,6 +79,7 @@ import { SelectSearchableModule } from '../components/select/select-module';
   entryComponents: [
     MyApp,
     HomePage,
+    UserRegistrationPage,
     DashboardPage,
     AddCustomerPage,
     CustomerPage,
@@ -77,14 +90,20 @@ import { SelectSearchableModule } from '../components/select/select-module';
     MeasurementPage,
     MeasurementDetailsPage,
     OrderPage,
+    ProfilePage,
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,
     ChangeOrderStatusPage,
-    EditMeasurementPage
+    EditMeasurementPage,
+    PopoverPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    File,
+    Transfer,
+    Camera,
+    FilePath,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     DatabaseProvider,
     SQLitePorter,

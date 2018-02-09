@@ -8,14 +8,14 @@ import { CustomerPage } from '../pages/customer-list/customer';
 import { MeasurementNamePage } from '../pages/measurementName/measurementName';
 import { MeasurementTypePage } from '../pages/measurementType/measurementType';
 
-//import { HomePage } from '../pages/home/home';
-import { DashboardPage } from '../pages/dashboard/dashboard';
+import { HomePage } from '../pages/home/home';
+//import { DashboardPage } from '../pages/dashboard/dashboard';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = DashboardPage;
+  rootPage: any = HomePage;
   pages: Array<{ title: string, component: any, icon: string }>
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

@@ -111,3 +111,17 @@ $font-style: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 13px 8px 13px 0;
   border-bottom: 1px solid #dedede; 
 }
+
+.alert-ios .alert-radio-label{ white-space: pre-line;}
+.alert-md .alert-radio-label{ white-space: pre-line;}
+.alert-wp .alert-radio-label{ white-space: pre-line;}
+.select-text { white-space: pre-line;}
+
+.error-button{
+  margin-top: 5px;
+  padding: 0;
+  font-size: 0.7rem;
+  text-transform: capitalize;
+  height: 1.0rem;
+  display: block
+}

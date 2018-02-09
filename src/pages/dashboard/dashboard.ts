@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { App, NavController, ToastController, Content } from 'ionic-angular';
+import { App, NavController, ToastController, Content, ViewController, PopoverController } from 'ionic-angular';
 import { AddCustomerPage } from '../add-customer/add-customer';
 import { CustomerPage } from '../customer-list/customer';
 import { DatabaseProvider } from './../../providers/database/database';
 import { MeasurementNamePage } from '../measurementName/measurementName';
 import { MeasurementTypePage } from '../measurementType/measurementType';
 import { OrderPage } from '../order/order';
+import { HomePage } from '../home/home';
+import { ProfilePage } from '../profile/profile';
 
 @Component({
   selector: 'page-dashboard',
@@ -20,6 +22,7 @@ export class DashboardPage {
   constructor(public navCtrl: NavController,
     public toastCtrl: ToastController,
     public databaseprovider: DatabaseProvider,
+    public popoverCtrl: PopoverController,
     public app: App) {
 
   }
@@ -61,4 +64,45 @@ export class DashboardPage {
   navigateMeasurementNamePage() { this.navCtrl.push(MeasurementNamePage); }
 
   navigateOrderPage() { this.navCtrl.push(OrderPage); }
+
+  popover_Click(ev) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: ev
+    });
+  }
+}
+
+
+
+
+@Component({
+  template: `
+    <ion-list>
+      <ion-list-header>{{userName}}</ion-list-header>
+      <button ion-item (click)="profile_Click()">
+      <ion-icon name="md-contact"></ion-icon>&nbsp;&nbsp;&nbsp;Profile
+      </button>
+      <button ion-item (click)="logout_Click()">
+      <ion-icon name="md-log-out"></ion-icon>&nbsp;&nbsp;&nbsp;Logout
+      </button>
+    </ion-list>
+  `
+})
+export class PopoverPage {
+  userName: string;
+  constructor(public navCtrl: NavController,
+    public databaseprovider: DatabaseProvider,
+    public viewCtrl: ViewController,
+    public app: App) {
+    this.userName = this.databaseprovider.User.Username;
+  }
+
+  profile_Click() {
+    this.navCtrl.push(ProfilePage).then(() => { this.viewCtrl.dismiss(); });
+  }
+
+  logout_Click() {
+    this.app.getRootNav().setRoot(HomePage).then(() => { this.viewCtrl.dismiss(); });
+  }
 }

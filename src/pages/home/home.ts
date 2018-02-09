@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
+import { UserRegistrationPage } from '../userRegistration/userRegistration';
 import { DashboardPage } from '../dashboard/dashboard';
 import { DatabaseProvider } from './../../providers/database/database';
 
@@ -24,15 +25,24 @@ export class HomePage {
       this.presentToast("Please enter password");
       return;
     }
-
-    if (this.txtUsername.toLowerCase() == "admin" && this.txtPassword.toLocaleLowerCase() == "admin") {
-      this.navCtrl.setRoot(DashboardPage).then(() => {
-        console.log("done");
+    this.databaseProvider.login(this.txtUsername.toLowerCase(), this.txtPassword.toLocaleLowerCase())
+      .then(data => {
+        if (data.length > 0) {
+          this.navCtrl.setRoot(DashboardPage).then(() => {
+            console.log("done");
+          });
+        }
+        else {
+          this.presentToast("Login failed");
+        }
+      }, err => {
+        this.presentToast("Login failed");
+        console.log('Error: ', err);
       });
-    }
-    else {
-      this.presentToast("Login failed");
-    }
+  }
+
+  userRegistration() {
+    this.navCtrl.push(UserRegistrationPage);
   }
 
 

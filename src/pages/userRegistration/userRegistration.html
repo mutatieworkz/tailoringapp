@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>User Registration</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <form (ngSubmit)="Submit()" #registerForm="ngForm">
+    <ion-list inset>
+      <ion-item class="login-item">
+        <ion-label floating style="font-size: 18px">Username</ion-label>
+        <ion-input type="text" name="username" [(ngModel)]="txtUsername" (ionBlur)="onBlur()" required></ion-input>
+      </ion-item>
+      <button ion-button icon-left color="secondary" clear class="error-button" *ngIf="isUserNotExists">
+        <ion-icon name="md-checkmark"></ion-icon>
+        User available
+      </button>
+      <button ion-button icon-left color="danger" clear class="error-button" *ngIf="isUserExists">
+        <ion-icon name="md-close"></ion-icon>
+        Username already exists.
+      </button>
+      <ion-item class="login-item">
+        <ion-label floating style="font-size: 18px">Password</ion-label>
+        <ion-input type="password" name="password" [(ngModel)]="txtPassword" disabled="{{!isUserNotExists}}" required></ion-input>
+      </ion-item>
+      <ion-item class="login-item">
+        <ion-label floating style="font-size: 18px">Phone</ion-label>
+        <ion-input type="tel" name="phone" [(ngModel)]="txtPhone" disabled="{{!isUserNotExists}}" required></ion-input>
+      </ion-item>
+      <ion-item class="login-item">
+        <ion-label floating style="font-size: 18px">Email</ion-label>
+        <ion-input type="email" name="phone" [(ngModel)]="txtEmail" disabled="{{!isUserNotExists}}" required></ion-input>
+      </ion-item>
+      <ion-item class="login-item">
+        <ion-label floating style="font-size: 18px">Birthday</ion-label>
+        <ion-datetime name="dob" [(ngModel)]="dtBirthday" disabled="{{!isUserNotExists}}" required></ion-datetime>
+      </ion-item>
+      <ion-item class="login-item">
+        <ion-label floating style="font-size: 18px">Gender</ion-label>
+        <ion-select [(ngModel)]="gender" name="gender" (ionChange)="onChangeGender(gender)" disabled="{{!isUserNotExists}}" required>
+          <ion-option value="Male">Male</ion-option>
+          <ion-option value="Female">Female</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="login-item">
+        <ion-label floating style="font-size: 18px">Security Question</ion-label>
+        <ion-select [(ngModel)]="selectedQuestion" name="questions" (ionChange)="onChangeQuestion(selectedQuestion)" disabled="{{!isUserNotExists}}"
+          required>
+          <ion-option text-wrap *ngFor="let question of questions" [value]="question">{{question.Question}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="login-item">
+        <ion-label floating style="font-size: 18px">Answer</ion-label>
+        <ion-input type="text" name="answer" [(ngModel)]="txtAnswer" disabled="{{!isUserNotExists}}" required></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button full large color="primaryDarkColor" style="margin-top: 15%" type="submit" [disabled]="!registerForm.form.valid">Submit</button>
+  </form>
+</ion-content>
