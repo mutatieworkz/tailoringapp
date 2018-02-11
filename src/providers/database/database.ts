@@ -18,27 +18,45 @@ export class DatabaseProvider {
   public orderId;
   public User;
   database: SQLiteObject;
+  isOpen: boolean = false;
   private databaseReady: BehaviorSubject<boolean>;
 
   constructor(public sqlitePorter: SQLitePorter, private storage: Storage, private sqlite: SQLite, private platform: Platform, private http: Http) {
-    this.databaseReady = new BehaviorSubject(false);
-    this.platform.ready()
-      .then(() => {
-        this.sqlite.create({
-          name: 'tailoring.db',
-          location: 'default'
-        })
-          .then((db: SQLiteObject) => {
-            this.database = db;
-            this.storage.get('database_filled').then(val => {
-              if (val) {
-                this.databaseReady.next(true);
-              } else {
-                this.fillDatabase();
-              }
-            });
+
+  }
+
+  public openSQLiteDatabase() {
+    return new Promise((resolve, reject) => {
+      if (this.isOpen) {
+        console.log("DB IS OPEN");
+        resolve(this.isOpen);
+      }
+      else {
+        console.log("DB IS NOT OPEN");
+        this.databaseReady = new BehaviorSubject(false);
+        this.platform.ready()
+          .then(() => {
+            this.sqlite.create({
+              name: 'tailoring.db',
+              location: 'default'
+            })
+              .then((db: SQLiteObject) => {
+                this.database = db;
+                this.storage.get('database_filled').then(val => {
+                  if (val) {
+                    this.databaseReady.next(true);
+                  } else {
+                    this.fillDatabase();
+                  }
+                });
+                this.isOpen = true;
+                resolve(this.isOpen);
+              });
+          }, (error) => {
+            reject(error);
           });
-      });
+      }
+    });
   }
 
   delay(ms: number) {
@@ -69,6 +87,34 @@ export class DatabaseProvider {
       });
   }
 
+  checkLoggedInUser() {
+    return this.database.executeSql("SELECT * FROM User WHERE IsLogin=?", [true])
+      .then(data => {
+        let users = [];
+        if (data.rows.length > 0) {
+          for (var i = 0; i < data.rows.length; i++) {
+            users.push({
+              UserId: data.rows.item(i).UserId,
+              Username: data.rows.item(i).Username,
+              Password: data.rows.item(i).Password,
+              Phone: data.rows.item(i).Phone,
+              Email: data.rows.item(i).Email,
+              DOB: data.rows.item(i).DOB,
+              Gender: data.rows.item(i).Gender,
+              QuestionId: data.rows.item(i).QuestionId,
+              Answer: data.rows.item(i).Answer,
+              CreatedOn: data.rows.item(i).CreatedOn,
+              UpdatedOn: data.rows.item(i).UpdatedOn
+            });
+          }
+        }
+        return users;
+      }, err => {
+        console.log('Error: ', err);
+        return err;
+      });
+  }
+
   login(username, password) {
     return this.database.executeSql("SELECT * FROM User WHERE Username=? AND password=?", [username, password])
       .then(data => {
@@ -90,8 +136,14 @@ export class DatabaseProvider {
             });
           }
         }
-        this.User = users;
-        return users;
+        return this.updateIsLogin(users[0].UserId, true)
+          .then(data => {
+            this.User = users;
+            return users;
+          }, err => {
+            console.log('Error: ', err);
+            return err;
+          });
       }, err => {
         console.log('Error: ', err);
         return err;

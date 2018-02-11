@@ -13,7 +13,28 @@ export class HomePage {
   txtUsername: string;
   txtPassword: string;
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public databaseProvider: DatabaseProvider) {
+    console.log("Start");
 
+  }
+
+  ionViewDidLoad() {
+    //this.databaseProvider.delay(500);
+
+    this.databaseProvider.openSQLiteDatabase()
+      .then(data => {
+        console.log("OnInit");
+        this.databaseProvider.checkLoggedInUser()
+          .then(data => {
+            if (data.length > 0) {
+              this.databaseProvider.User = data;
+              this.navCtrl.setRoot(DashboardPage).then(() => {
+                console.log("done");
+              });
+            }
+          }, err => {
+            console.log(err);
+          });
+      })
   }
 
   SignIn() {

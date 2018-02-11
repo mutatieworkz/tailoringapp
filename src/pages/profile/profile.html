@@ -1,7 +1,25 @@
 <ion-header>
     <ion-navbar color="primary">
         <ion-title>Profile</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="royal">
+              <ion-icon md="md-create"></ion-icon>
+            </button>
+          </ion-buttons>
     </ion-navbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <div class="profile-div">
+        <div class="profile-img-div">
+            <img class="profile-img" src="{{profileImg}}">
+            <button ion-button icon-only clear class="camareIcon">
+                <ion-icon  ios="ios-camera" md="md-camera"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <h1 text-capitalize text-center>{{profile.Username}}</h1>
+    <h4 text-center>{{profile.DOB | date:'dd-MM-yyyy'}}</h4>
+    <h4 text-center><ion-icon ios="ios-call" md="md-call"></ion-icon>&nbsp;&nbsp;&nbsp;{{profile.Phone}}</h4>
+    <h4 text-center><ion-icon ios="ios-mail" md="md-mail"></ion-icon>&nbsp;&nbsp;&nbsp;{{profile.Email}}</h4>
+</ion-content>

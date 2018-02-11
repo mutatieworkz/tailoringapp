@@ -18,7 +18,6 @@ export class DashboardPage {
   Female: string = "0";
   Total: number = 0;
   @ViewChild(Content) content: Content;
-
   constructor(public navCtrl: NavController,
     public toastCtrl: ToastController,
     public databaseprovider: DatabaseProvider,
@@ -66,7 +65,9 @@ export class DashboardPage {
   navigateOrderPage() { this.navCtrl.push(OrderPage); }
 
   popover_Click(ev) {
-    let popover = this.popoverCtrl.create(PopoverPage);
+    let popover = this.popoverCtrl.create(PopoverPage, {
+      contentEle: this.content.getNativeElement()
+    });
     popover.present({
       ev: ev
     });
@@ -79,7 +80,6 @@ export class DashboardPage {
 @Component({
   template: `
     <ion-list>
-      <ion-list-header>{{userName}}</ion-list-header>
       <button ion-item (click)="profile_Click()">
       <ion-icon name="md-contact"></ion-icon>&nbsp;&nbsp;&nbsp;Profile
       </button>
@@ -95,7 +95,7 @@ export class PopoverPage {
     public databaseprovider: DatabaseProvider,
     public viewCtrl: ViewController,
     public app: App) {
-    this.userName = this.databaseprovider.User.Username;
+    this.userName = this.databaseprovider.User[0].Username;
   }
 
   profile_Click() {
@@ -103,6 +103,10 @@ export class PopoverPage {
   }
 
   logout_Click() {
-    this.app.getRootNav().setRoot(HomePage).then(() => { this.viewCtrl.dismiss(); });
+    this.databaseprovider.updateIsLogin(this.databaseprovider.User[0].UserId, false)
+      .then(data => {
+        this.app.getRootNav().setRoot(HomePage).then(() => { this.viewCtrl.dismiss(); });
+      }, err => { });
+
   }
 }
