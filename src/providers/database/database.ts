@@ -228,6 +228,18 @@ export class DatabaseProvider {
         return false;
       });
   }
+
+  updateUser(phone, email, DOB, gender, userId) {
+    return this.database.executeSql("UPDATE USER SET Phone=?, Email=?, DOB=?, Gender=?, UpdatedOn=? WHERE UserId=?", [phone, email, DOB, gender, new Date(), userId])
+      .then(data => {
+        return data.rowsAffected > 0 ? true : false;
+      },
+      err => {
+        console.log('Error: ', err);
+        return err;
+      });
+
+  }
   //endregion
 
 

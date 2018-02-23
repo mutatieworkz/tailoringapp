@@ -39,10 +39,11 @@ import { AddEditMeasurementNamePage } from '../modals/addEditMeasurementName/add
 import { AddEditMeasurementTypePage } from '../modals/addEditMeasurementType/addEditMeasurementType';
 import { ChangeOrderStatusPage } from '../modals/changeOrderStatus/changeOrderStatus';
 import { EditMeasurementPage } from '../modals/editMeasurement/editMeasurement';
+import { EditProfilePage } from '../modals/editProfile/editProfile';
 
 import { SelectSearchableModule } from '../components/select/select-module';
 
-import { PopoverPage } from '../pages/dashboard/dashboard';
+import { ProfilePopoverPage } from '../popOvers/profilePopOver';
 
 @NgModule({
   declarations: [
@@ -64,8 +65,9 @@ import { PopoverPage } from '../pages/dashboard/dashboard';
     AddEditMeasurementTypePage,
     ChangeOrderStatusPage,
     EditMeasurementPage,
+    EditProfilePage,
     GenderToimagePipe,
-    PopoverPage
+    ProfilePopoverPage
   ],
   imports: [
     BrowserModule,
@@ -95,7 +97,8 @@ import { PopoverPage } from '../pages/dashboard/dashboard';
     AddEditMeasurementTypePage,
     ChangeOrderStatusPage,
     EditMeasurementPage,
-    PopoverPage
+    EditProfilePage,
+    ProfilePopoverPage
   ],
   providers: [
     StatusBar,

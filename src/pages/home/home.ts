@@ -12,24 +12,21 @@ import { DatabaseProvider } from './../../providers/database/database';
 export class HomePage {
   txtUsername: string;
   txtPassword: string;
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public databaseProvider: DatabaseProvider) {
-    console.log("Start");
+  constructor(public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public databaseProvider: DatabaseProvider
+   ) {
 
   }
 
   ionViewDidLoad() {
-    //this.databaseProvider.delay(500);
-
     this.databaseProvider.openSQLiteDatabase()
       .then(data => {
-        console.log("OnInit");
         this.databaseProvider.checkLoggedInUser()
           .then(data => {
             if (data.length > 0) {
               this.databaseProvider.User = data;
-              this.navCtrl.setRoot(DashboardPage).then(() => {
-                console.log("done");
-              });
+              this.navCtrl.setRoot(DashboardPage);
             }
           }, err => {
             console.log(err);
@@ -46,6 +43,7 @@ export class HomePage {
       this.presentToast("Please enter password");
       return;
     }
+
     this.databaseProvider.login(this.txtUsername.toLowerCase(), this.txtPassword.toLocaleLowerCase())
       .then(data => {
         if (data.length > 0) {
@@ -66,7 +64,6 @@ export class HomePage {
     this.navCtrl.push(UserRegistrationPage);
   }
 
-
   presentToast(content: string) {
     const toast = this.toastCtrl.create({
       message: content,
@@ -75,4 +72,7 @@ export class HomePage {
     });
     toast.present();
   }
+
+
+ 
 }

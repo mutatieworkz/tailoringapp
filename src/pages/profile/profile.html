@@ -2,7 +2,7 @@
     <ion-navbar color="primary">
         <ion-title>Profile</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only color="royal">
+            <button ion-button icon-only color="royal" (click)="loadModal()">
               <ion-icon md="md-create"></ion-icon>
             </button>
           </ion-buttons>
@@ -12,8 +12,8 @@
 <ion-content>
     <div class="profile-div">
         <div class="profile-img-div">
-            <img class="profile-img" src="{{profileImg}}">
-            <button ion-button icon-only clear class="camareIcon">
+            <img class="profile-img" [src]="dom.bypassSecurityTrustUrl(profileImg)">
+            <button ion-button icon-only clear class="camareIcon" (click)="presentActionSheet()">
                 <ion-icon  ios="ios-camera" md="md-camera"></ion-icon>
             </button>
         </div>
