@@ -15,6 +15,31 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+@font-face{
+  font-family: futuraMedium;
+  src : url('../assets/fonts/Futura_Medium.TTF');
+}
+
+@font-face{
+  font-family : futuraRegular;
+  src : url('../assets/fonts/ShellFuturaBook.ttf');
+}
+
+@font-face{
+  font-family: futuraMedium;
+  src : url('../assets/fonts/Futura_Medium.TTF');
+}
+
+@font-face{
+  font-family: futuraHeavy;
+  src :url('../assets/fonts/Future_Heavy.TTF');
+}
+
+@font-face{
+  font-family: futuraLight;
+  src : url('../assets/fonts/Future_Light.TTF');
+}
+
 body{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -27,7 +52,7 @@ $text-color:rgb(7, 5, 41);
 $add-customer-color:rgb(0, 176, 240);
 $customer-list-color: rgb(0, 176, 80);
 $report-color: rgb(255,192,0);
-$font-style: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family-heavy: 'futuraHeavy';
 
 .login-item{
     border-top: 0 !important;
@@ -46,6 +71,7 @@ $font-style: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 28px;
     margin: 2%;
     text-align: center;
+    font-family: $font-family-heavy;
 }
 
 .right{

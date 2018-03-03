@@ -5,6 +5,31 @@
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
 
+@font-face{
+  font-family: futuraMedium;
+  src : url($font-path+'/Futura_Medium.TTF');
+}
+
+@font-face{
+  font-family : futuraRegular;
+  src : url($font-path+'/ShellFuturaBook.ttf');
+}
+
+@font-face{
+  font-family: futuraMedium;
+  src : url($font-path+'/Futura_Medium.TTF');
+}
+
+@font-face{
+  font-family: futuraHeavy;
+  src :url($font-path+'/Future_Heavy.TTF');
+}
+
+@font-face{
+  font-family: futuraLight;
+  src : url($font-path+'/Future_Light.TTF');
+}
+
 
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
@@ -34,14 +59,15 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #03a9f4,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
-  primaryLightColor: #67daff,
-  primaryDarkColor:#007ac1,
-  primaryTextColor:#000000
+  primary:    #f44336,
+  secondary:  #37464f,
+  danger:     #ba000d,
+  light:      #62717b,
+  dark:       #101f27,
+  primaryLightColor: #ff7961,
+  primaryDarkColor:#ba000d,
+  primaryTextColor:#404040,
+  secondaryTextColor:#CCCCCC
 );
 
 

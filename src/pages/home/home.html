@@ -1,23 +1,22 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar color="primary">
     <ion-title>
       Cut & Stitches
     </ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content padding>
-  <ion-row>
+  <ion-row class = "login_row_1">
     <ion-col></ion-col>
     <ion-col width-67>
-      <img src="assets/Sewing_machine.png">
+      <img src="assets/LoginPageCaptionImage.png">
+      <label class="loginPageCaptionLabel">Login</label>
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
-  <div class="title-div">
-    Cut & Stitches
-  </div>
-  <div>
+  <ion-row class="login_row_2">
+  <div class="login_form">
     <form (ngSubmit)="SignIn()" #registerForm="ngForm">
       <ion-list>
         <ion-item class="login-item">
@@ -51,7 +50,6 @@
         </ion-buttons>
       </ion-col>
     </ion-row>
-
-
-  </div>
+</div>
+</ion-row>
 </ion-content>
