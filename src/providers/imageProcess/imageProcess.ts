@@ -1,85 +1,43 @@
-import { Component, NgZone } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Injectable, NgZone } from '@angular/core';
 import { NavController, ToastController, ActionSheetController, Platform, LoadingController, ModalController } from 'ionic-angular';
-import { DatabaseProvider } from './../../providers/database/database';
-import { EditProfilePage } from './../../modals/editProfile/editProfile';
+import { DatabaseProvider } from '../../providers/database/database';
 
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
-
-
 declare var cordova: any;
 
-@Component({
-    selector: 'page-profile',
-    templateUrl: 'profile.html'
-})
-
-export class ProfilePage {
+@Injectable()
+export class ImageProcessProvider {
     profileImg: any;
-    profile: any;
-
     constructor(private databaseProvider: DatabaseProvider,
-        public navCtrl: NavController,
-        public actionSheetCtrl: ActionSheetController,
         private camera: Camera,
         private file: File,
         private filePath: FilePath,
         public toastCtrl: ToastController,
         public platform: Platform,
-        public loadingCtrl: LoadingController,
-        private zone: NgZone,
-        public dom: DomSanitizer,
-        public modalCtrl: ModalController) {
-        this.setProfileImg();
-        this.profile = this.databaseProvider.User[0];
+        private zone: NgZone) {
     }
 
-    private setProfileImg() {
-        this.file.checkFile(cordova.file.dataDirectory, this.createFileName())
+    public setProfileImg() {
+        return this.file.checkFile(cordova.file.dataDirectory, this.createFileName())
             .then(data => {
                 if (data) {
-                    this.profileImg = this.pathForImage(this.createFileName());
+                    this.profileImg = this.pathForImage(this.createFileName() + '?' + new Date().getTime());
                 }
                 else {
                     this.profileImg = this.databaseProvider.User[0].Gender == 'Male' ? 'assets/Male.png' : 'assets/Female.png';
                 }
+                return this.profileImg;
             }, err => {
                 console.log(err);
                 this.profileImg = this.databaseProvider.User[0].Gender == 'Male' ? 'assets/Male.png' : 'assets/Female.png';
+                return this.profileImg;
             });
     }
 
-
-    public presentActionSheet() {
-        let actionSheet = this.actionSheetCtrl.create({
-            title: 'Select Image Source',
-            buttons: [
-                {
-                    text: 'Load from Library',
-                    handler: () => {
-                        this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-                    }
-                },
-                {
-                    text: 'Use Camera',
-                    handler: () => {
-                        this.takePicture(this.camera.PictureSourceType.CAMERA);
-                    }
-                },
-                {
-                    text: 'Cancel',
-                    role: 'cancel'
-                }
-            ]
-        });
-        actionSheet.present();
-    }
-
-
-    public takePicture(sourceType) {
+    public takePicture(sourceType): Promise<any> {
         // Create options for the Camera Dialog
         var options = {
             quality: 100,
@@ -90,19 +48,19 @@ export class ProfilePage {
         };
 
         // Get the data of an image
-        this.camera.getPicture(options).then((imagePath) => {
+        return this.camera.getPicture(options).then((imagePath) => {
             // Special handling for Android library
             if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-                this.filePath.resolveNativePath(imagePath)
+                return this.filePath.resolveNativePath(imagePath)
                     .then(filePath => {
                         let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
                         let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-                        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+                        return this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
                     });
             } else {
                 var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
                 var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-                this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+                return this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
             }
         }, (err) => {
             this.presentToast('Error while selecting image.');
@@ -112,7 +70,7 @@ export class ProfilePage {
     /** Create a new name for the image
     * @returns {string} The File name 
     */
-    private createFileName() {
+    public createFileName() {
         return this.databaseProvider.User[0].Username + ".jpg";
     }
 
@@ -125,26 +83,26 @@ export class ProfilePage {
     */
     private copyFileToLocalDir(namePath, currentName, newFileName) {
         console.log(newFileName + ' ' + currentName + ' ' + namePath + ' ' + cordova.file.dataDirectory)
-        this.file.checkFile(cordova.file.dataDirectory, this.createFileName())
+        return this.file.checkFile(cordova.file.dataDirectory, this.createFileName())
             .then(data => {
                 if (data) {
                     console.log('File found');
-                    this.file.removeFile(cordova.file.dataDirectory, this.createFileName())
+                    return this.file.removeFile(cordova.file.dataDirectory, this.createFileName())
                         .then(() => {
                             console.log("file removed")
-                            this.copyFile(namePath, currentName, newFileName);
+                            return this.copyFile(namePath, currentName, newFileName);
                         });
                 }
                 else {
-                    this.copyFile(namePath, currentName, newFileName);
+                    return this.copyFile(namePath, currentName, newFileName);
                 }
             }, err => {
-                this.copyFile(namePath, currentName, newFileName);
+                return this.copyFile(namePath, currentName, newFileName);
             });
     }
 
     private copyFile(namePath: any, currentName: any, newFileName: any) {
-        this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+        return this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
             this.zone.run(() => {
                 this.profileImg = this.pathForImage(this.createFileName() + '?' + new Date().getTime());
             });
@@ -154,6 +112,7 @@ export class ProfilePage {
                     console.log("Deleted");
                 }, err => { console.log(err); })
             console.log('Created ' + this.profileImg);
+            return this.profileImg;
         }, error => {
             this.presentToast('Error while storing file.');
         });
@@ -166,26 +125,6 @@ export class ProfilePage {
             position: 'top'
         });
         toast.present();
-    }
-
-    loadModal() {
-        let modal = this.modalCtrl.create(EditProfilePage, { user: this.profile });
-        modal.onDidDismiss(data => {
-            if (data) {
-                // Call the method to do whatever in your home.ts
-                this.databaseProvider.checkLoggedInUser()
-                    .then(data => {
-                        if (data.length > 0) {
-                            this.databaseProvider.User = data;
-                            this.profile = data[0];
-                        }
-                    }, err => {
-                        console.log(err);
-                    });
-            }
-            console.log('Modal closed');
-        });
-        modal.present();
     }
 
     // Always get the accurate path to your apps folder

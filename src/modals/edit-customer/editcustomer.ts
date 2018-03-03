@@ -11,7 +11,7 @@ import { DatabaseProvider } from './../../providers/database/database';
 
 @Component({
   selector: 'page-edit-customer',
-  templateUrl: './../../pages/add-customer/add-customer.html'
+  templateUrl: './../../pages/customer/add-customer/add-customer.html'
 })
 export class EditCustomerPage {
   id: number;

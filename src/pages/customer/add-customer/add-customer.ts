@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { DatabaseProvider } from './../../providers/database/database';
+import { DatabaseProvider } from './../../../providers/database/database';
 
 /**
  * Generated class for the AddCustomerPage page.

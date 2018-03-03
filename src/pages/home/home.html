@@ -33,11 +33,25 @@
       <button ion-button full large color="primaryDarkColor" style="margin-top: 15%" type="submit" [disabled]="!registerForm.form.valid">Login</button>
       <!-- <button ion-button class="register-btn" block clear (click)="createAccount()">Create New Account</button> -->
     </form>
-    <ion-buttons end>
-    <button ion-button clear icon-left (click)="userRegistration()" style="padding: 0">
-      <ion-icon name="md-person-add"></ion-icon>
-      User Registration
-    </button>
-  </ion-buttons>
+    <ion-row>
+      <ion-col>
+        <ion-buttons start>
+          <button ion-button clear icon-left small (click)="forgotPassword()" [disabled]="!isForgotPasswordEnabled" style="padding: 0">
+            <ion-icon name="md-key"></ion-icon>
+            Forgot Password
+          </button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col>
+        <ion-buttons end>
+          <button ion-button clear icon-left small (click)="userRegistration()" style="padding: 0">
+            <ion-icon name="md-person-add"></ion-icon>
+            User Registration
+          </button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+
+
   </div>
 </ion-content>

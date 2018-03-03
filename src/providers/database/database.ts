@@ -135,15 +135,16 @@ export class DatabaseProvider {
               UpdatedOn: data.rows.item(i).UpdatedOn
             });
           }
+          return this.updateIsLogin(users[0].UserId, true)
+            .then(data => {
+              this.User = users;
+              return users;
+            }, err => {
+              console.log('Error: ', err);
+              return err;
+            });
         }
-        return this.updateIsLogin(users[0].UserId, true)
-          .then(data => {
-            this.User = users;
-            return users;
-          }, err => {
-            console.log('Error: ', err);
-            return err;
-          });
+        return users;
       }, err => {
         console.log('Error: ', err);
         return err;
@@ -151,13 +152,14 @@ export class DatabaseProvider {
   }
 
   getSecurityQuestionByUser(userName) {
-    return this.database.executeSql("SELECT QuestionId, Answer, UserId FROM User WHERE Username=?", [userName])
+    return this.database.executeSql("SELECT S.QuestionId, S.Question, U.Answer, U.UserId FROM User as U,SecurityQuestions as S WHERE S.QuestionId==U.QuestionId AND Username=?", [userName])
       .then(data => {
         let questions = [];
         if (data.rows.length > 0) {
           for (var i = 0; i < data.rows.length; i++) {
             questions.push({
               QuestionId: data.rows.item(i).QuestionId,
+              Question: data.rows.item(i).Question,
               Answer: data.rows.item(i).Answer,
               UserId: data.rows.item(i).UserId
             });
@@ -165,10 +167,10 @@ export class DatabaseProvider {
         }
         return questions;
       },
-      err => {
-        console.log('Error: ', err);
-        return err;
-      });
+        err => {
+          console.log('Error: ', err);
+          return err;
+        });
   }
 
   updatePassword(userId, password) {
@@ -176,10 +178,10 @@ export class DatabaseProvider {
       .then(data => {
         return data;
       },
-      err => {
-        console.log('Error: ', err);
-        return err;
-      });
+        err => {
+          console.log('Error: ', err);
+          return err;
+        });
   }
 
   checkUserExists(username) {
@@ -234,10 +236,10 @@ export class DatabaseProvider {
       .then(data => {
         return data.rowsAffected > 0 ? true : false;
       },
-      err => {
-        console.log('Error: ', err);
-        return err;
-      });
+        err => {
+          console.log('Error: ', err);
+          return err;
+        });
 
   }
   //endregion
@@ -456,10 +458,10 @@ export class DatabaseProvider {
         }
         return measurement;
       },
-      err => {
-        console.log(err);
-        return err;
-      });
+        err => {
+          console.log(err);
+          return err;
+        });
   }
 
   //#endregion
@@ -547,10 +549,10 @@ export class DatabaseProvider {
           return 0;
         }
       },
-      err => {
-        console.log(err);
-        return null;
-      })
+        err => {
+          console.log(err);
+          return null;
+        })
   }
 
   checkMeasurementAvaiableByTypeForOrder(type_id, Order_id) {
@@ -697,10 +699,10 @@ export class DatabaseProvider {
         }
         return status;
       },
-      err => {
-        console.log(err);
-        return null;
-      });
+        err => {
+          console.log(err);
+          return null;
+        });
   }
   //#endregion
 

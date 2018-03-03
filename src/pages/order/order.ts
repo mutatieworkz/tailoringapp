@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, ModalController, LoadingController, ToastController } from 'ionic-angular';
 import { DatabaseProvider } from './../../providers/database/database';
-import { MeasurementPage } from './../measurement/measurement';
-import { MeasurementDetailsPage } from './../measurementDetails/measurementDetails';
+import { MeasurementPage } from './../measurement/measurement/measurement';
+import { MeasurementDetailsPage } from './../measurement/measurementDetails/measurementDetails';
 import { ChangeOrderStatusPage } from './../../modals/changeOrderStatus/changeOrderStatus';
 import { SelectSearchable } from '../../components/select/select';
 

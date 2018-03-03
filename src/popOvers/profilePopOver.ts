@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { App, ViewController, AlertController, ToastController } from 'ionic-angular';
 import { DatabaseProvider } from '../providers/database/database';
-import { ProfilePage } from '../pages/profile/profile';
+import { ProfilePage } from '../pages/user/profile/profile';
 import { HomePage } from '../pages/home/home';
 import { delay } from 'rxjs/operators/delay';
 

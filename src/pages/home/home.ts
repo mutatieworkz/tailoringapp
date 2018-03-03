@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
-import { UserRegistrationPage } from '../userRegistration/userRegistration';
+import { UserRegistrationPage } from '../user/userRegistration/userRegistration';
 import { DashboardPage } from '../dashboard/dashboard';
+import { ForgotPasswordPage } from '../user/forgotPassword/forgotPassword';
 import { DatabaseProvider } from './../../providers/database/database';
 
 
@@ -12,27 +13,28 @@ import { DatabaseProvider } from './../../providers/database/database';
 export class HomePage {
   txtUsername: string;
   txtPassword: string;
+  isForgotPasswordEnabled: boolean = false;
   constructor(public navCtrl: NavController,
     public toastCtrl: ToastController,
     public databaseProvider: DatabaseProvider
-   ) {
+  ) {
 
   }
 
-  ionViewDidLoad() {
-    this.databaseProvider.openSQLiteDatabase()
-      .then(data => {
-        this.databaseProvider.checkLoggedInUser()
-          .then(data => {
-            if (data.length > 0) {
-              this.databaseProvider.User = data;
-              this.navCtrl.setRoot(DashboardPage);
-            }
-          }, err => {
-            console.log(err);
-          });
-      })
-  }
+  // ionViewDidLoad() {
+  //   this.databaseProvider.openSQLiteDatabase()
+  //     .then(data => {
+  //       this.databaseProvider.checkLoggedInUser()
+  //         .then(data => {
+  //           if (data.length > 0) {
+  //             this.databaseProvider.User = data;
+  //             this.navCtrl.setRoot(DashboardPage);
+  //           }
+  //         }, err => {
+  //           console.log(err);
+  //         });
+  //     })
+  // }
 
   SignIn() {
     if (this.txtUsername == undefined || this.txtUsername.trim() == '') {
@@ -53,6 +55,7 @@ export class HomePage {
         }
         else {
           this.presentToast("Login failed");
+          this.isForgotPasswordEnabled = true;
         }
       }, err => {
         this.presentToast("Login failed");
@@ -62,6 +65,10 @@ export class HomePage {
 
   userRegistration() {
     this.navCtrl.push(UserRegistrationPage);
+  }
+
+  forgotPassword() {
+    this.navCtrl.push(ForgotPasswordPage, { param: { customer: this.txtUsername } });
   }
 
   presentToast(content: string) {
@@ -74,5 +81,5 @@ export class HomePage {
   }
 
 
- 
+
 }

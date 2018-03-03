@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
-import { DatabaseProvider } from './../../providers/database/database';
+import { DatabaseProvider } from './../../../providers/database/database';
 import { CustomersDetailsPage } from '../customersDetails/customersDetails';
 
 @Component({

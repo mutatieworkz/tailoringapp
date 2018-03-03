@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController, ModalController } from 'ionic-angular';
-import { DatabaseProvider } from './../../providers/database/database';
-import { AddEditMeasurementTypePage } from './../../modals/addEditMeasurementType/addEditMeasurementType';
+import { DatabaseProvider } from './../../../providers/database/database';
+import { AddEditMeasurementTypePage } from './../../../modals/addEditMeasurementType/addEditMeasurementType';
 
 
 @Component({

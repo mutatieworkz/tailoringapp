@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ModalController, LoadingController, AlertController } from 'ionic-angular';
-import { DatabaseProvider } from './../../providers/database/database';
-import { EditMeasurementPage } from './../../modals/editMeasurement/editMeasurement';
+import { DatabaseProvider } from './../../../providers/database/database';
+import { EditMeasurementPage } from './../../../modals/editMeasurement/editMeasurement';
 
 @Component({
     selector: 'page-measurement',

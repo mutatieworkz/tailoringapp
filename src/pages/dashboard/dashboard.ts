@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Content, PopoverController } from 'ionic-angular';
-import { AddCustomerPage } from '../add-customer/add-customer';
-import { CustomerPage } from '../customer-list/customer';
+import { AddCustomerPage } from '../customer/add-customer/add-customer';
+import { CustomerPage } from '../customer/customer-list/customer';
 import { DatabaseProvider } from './../../providers/database/database';
-import { MeasurementNamePage } from '../measurementName/measurementName';
-import { MeasurementTypePage } from '../measurementType/measurementType';
+import { MeasurementNamePage } from '../measurement/measurementName/measurementName';
+import { MeasurementTypePage } from '../measurement/measurementType/measurementType';
 import { OrderPage } from '../order/order';
 import { ProfilePopoverPage } from './../../popOvers/profilePopOver';
 

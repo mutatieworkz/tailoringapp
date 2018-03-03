@@ -13,7 +13,7 @@ import { DatabaseProvider } from './../../providers/database/database';
 
 @Component({
     selector: 'page-edit-customer',
-    templateUrl: './../../pages/measurement/measurement.html'
+    templateUrl: './../../pages/measurement/measurement/measurement.html'
 })
 
 export class EditMeasurementPage {

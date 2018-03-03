@@ -1,7 +1,7 @@
 import { Component, trigger, state, transition, style, animate } from '@angular/core';
 import { NavController, ToastController, ModalController } from 'ionic-angular';
-import { DatabaseProvider } from './../../providers/database/database';
-import { AddEditMeasurementNamePage } from './../../modals/addEditMeasurementName/addEditMeasurementName';
+import { DatabaseProvider } from './../../../providers/database/database';
+import { AddEditMeasurementNamePage } from './../../../modals/addEditMeasurementName/addEditMeasurementName';
 
 @Component({
   selector: 'page-measurementName',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
-import { DatabaseProvider } from './../../providers/database/database';
-import { EditCustomerPage } from './../../modals/edit-customer/editcustomer';
-import { OrderPage } from '../order/order';
+import { DatabaseProvider } from './../../../providers/database/database';
+import { EditCustomerPage } from './../../../modals/edit-customer/editcustomer';
+import { OrderPage } from '../../order/order';
 
 /**
  * Generated class for the CustomersDetailsPage page.

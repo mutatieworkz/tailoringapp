@@ -18,19 +18,21 @@ import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { UserRegistrationPage } from '../pages/userRegistration/userRegistration';
+import { UserRegistrationPage } from '../pages/user/userRegistration/userRegistration';
 import { DashboardPage } from '../pages/dashboard/dashboard';
-import { AddCustomerPage } from '../pages/add-customer/add-customer'
-import { CustomerPage } from '../pages/customer-list/customer';
-import { CustomersDetailsPage } from '../pages/customersDetails/customersDetails'
-import { MeasurementNamePage } from '../pages/measurementName/measurementName';
-import { MeasurementTypePage } from '../pages/measurementType/measurementType';
-import { MeasurementPage } from '../pages/measurement/measurement';
-import { MeasurementDetailsPage } from '../pages/measurementDetails/measurementDetails';
+import { AddCustomerPage } from '../pages/customer/add-customer/add-customer'
+import { CustomerPage } from '../pages/customer/customer-list/customer';
+import { CustomersDetailsPage } from '../pages/customer/customersDetails/customersDetails'
+import { MeasurementNamePage } from '../pages/measurement/measurementName/measurementName';
+import { MeasurementTypePage } from '../pages/measurement/measurementType/measurementType';
+import { MeasurementPage } from '../pages/measurement/measurement/measurement';
+import { MeasurementDetailsPage } from '../pages/measurement/measurementDetails/measurementDetails';
 import { OrderPage } from '../pages/order/order';
-import { ProfilePage } from '../pages/profile/profile'
+import { ProfilePage } from '../pages/user/profile/profile'
+import { ForgotPasswordPage } from '../pages/user/forgotPassword/forgotPassword';
 
 import { DatabaseProvider } from '../providers/database/database';
+import { ImageProcessProvider } from '../providers/imageProcess/imageProcess';
 
 import { GenderToimagePipe } from '../pipes/gender-toimage';
 
@@ -61,6 +63,7 @@ import { ProfilePopoverPage } from '../popOvers/profilePopOver';
     MeasurementDetailsPage,
     OrderPage,
     ProfilePage,
+    ForgotPasswordPage,
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,
     ChangeOrderStatusPage,
@@ -93,6 +96,7 @@ import { ProfilePopoverPage } from '../popOvers/profilePopOver';
     MeasurementDetailsPage,
     OrderPage,
     ProfilePage,
+    ForgotPasswordPage,
     AddEditMeasurementNamePage,
     AddEditMeasurementTypePage,
     ChangeOrderStatusPage,
@@ -109,6 +113,7 @@ import { ProfilePopoverPage } from '../popOvers/profilePopOver';
     FilePath,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     DatabaseProvider,
+    ImageProcessProvider,
     SQLitePorter,
     SQLite
   ]
