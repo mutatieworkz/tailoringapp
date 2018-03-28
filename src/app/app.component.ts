@@ -55,7 +55,7 @@ export class MyApp {
 
   private hideSplash(statusBar: StatusBar, splashScreen: SplashScreen) {
     statusBar.overlaysWebView(false);
-    statusBar.backgroundColorByHexString('#007ac1');
+    statusBar.backgroundColorByHexString('#ba000d');
     splashScreen.hide();
   }
 
